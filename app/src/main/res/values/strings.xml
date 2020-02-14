@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Libra</string>
-    <string name="search_btn">Search online for books …</string>
+    <string name="search_btn">Search books online</string>
     <string name="search_hint">Search</string>
 </resources>

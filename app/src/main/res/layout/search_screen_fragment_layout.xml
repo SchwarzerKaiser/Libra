@@ -13,13 +13,15 @@
         android:layout_height="59dp"
         android:layout_marginStart="@dimen/view_to_screen_edge_margin"
         android:layout_marginTop="@dimen/view_to_screen_edge_margin"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/ic_untitled"
         android:hint="@string/search_hint"
+        android:imeOptions="actionGo"
         android:inputType="textPersonName"
         android:padding="18dp"
         android:textColor="@android:color/holo_green_dark"
         android:transitionName="search_to_button_transition"
-        app:layout_constraintEnd_toStartOf="@+id/search_screen_search_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,28 +33,28 @@
         android:background="@drawable/yellow_shape"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/search_screen_search_btn"
+        app:layout_constraintEnd_toEndOf="@+id/books_search_bar"
         app:layout_constraintStart_toStartOf="@id/books_search_bar"
         app:layout_constraintTop_toBottomOf="@+id/books_search_bar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_recyclerview"
             android:layout_width="match_parent"
-            android:background="@color/searchButtonColor"
             android:layout_height="match_parent"
             tools:listitem="@layout/book_search_list_item" />
 
     </FrameLayout>
 
-    <Button
-        android:id="@+id/search_screen_search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="24dp"
-        android:text="@android:string/search_go"
-        app:layout_constraintBottom_toBottomOf="@+id/books_search_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/books_search_bar" />
+    <ProgressBar
+        android:id="@+id/search_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:indeterminate="true"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/books_search_bar"
+        app:layout_constraintStart_toStartOf="@+id/books_search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/books_search_bar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -25,7 +25,9 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View thisView, Bundle savedInstanceState) {
         super.onViewCreated(thisView, savedInstanceState);
+
         mSearchBooksField = thisView.findViewById(R.id.main_menu_search_btn);
+
         mSearchBooksField.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();
             Navigation.findNavController(thisView).navigate(action);
