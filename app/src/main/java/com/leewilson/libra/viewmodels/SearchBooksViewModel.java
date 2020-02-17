@@ -15,6 +15,7 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
 
     private Repository mRepository;
     private MutableLiveData<List<Book>> mSearchBooks;
+    private MutableLiveData<Book> mBookDetail;
 
     // Exposed public methods:
 
@@ -22,6 +23,7 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
         super(application);
         mRepository = new Repository(getApplication().getApplicationContext(), this);
         mSearchBooks = new MutableLiveData<>();
+        mBookDetail = new MutableLiveData<>();
     }
 
     public LiveData<List<Book>> getBookLiveData(){
@@ -33,10 +35,19 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
         }
     }
 
+    public LiveData<Book> getBookDetail() {
+        return mBookDetail;
+    }
+
+    public void setBookDetailIndex(int index) {
+        if (mSearchBooks.getValue() != null) {
+            mBookDetail.setValue(mSearchBooks.getValue().get(index));
+        } else throw new IllegalArgumentException("Book list is empty");
+    }
+
     public void updateSearchQuery(String query) {
         mRepository.updateBooks(query);
     }
-
 
     @Override
     public void onReceiveFromApi(List<Book> books) {
@@ -45,6 +56,6 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
 
     @Override
     public void onApiFailure() {
-        // TODO
+
     }
 }

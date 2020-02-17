@@ -1,9 +1,7 @@
 package com.leewilson.libra.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.leewilson.libra.R;
 import com.leewilson.libra.model.Book;
-import com.squareup.picasso.Callback;
+import com.leewilson.libra.views.SearchFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,10 +24,8 @@ import java.util.List;
 public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAdapter.ViewHolder> {
 
     private List<Book> mData = new ArrayList<>();
-
     private LayoutInflater mLayoutInflater;
     private Context mContext;
-
 
     public BookSearchListAdapter(Context context) {
         mContext = context;
@@ -51,23 +50,16 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
         Book book = mData.get(position);
         holder.title.setText(book.getTitle());
         holder.authors.setText(book.getAuthors());
-        if(!TextUtils.isEmpty(book.getThumbnailURL())) {
-            Picasso.get().load(book.getThumbnailURL())
+        holder.listIndex = position;
+        holder.book = book;
+        String thumbnailUrl = book.getThumbnailURL();
+        if(!TextUtils.isEmpty(thumbnailUrl)) {
+            Picasso.get().load(thumbnailUrl)
                     .error(R.drawable.book_placeholder)
                     .placeholder(R.drawable.book_placeholder)
                     .fit()
                     .centerCrop()
-                    .into(holder.cover, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Log.d("PICASSO", "SUCCESS");
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
+                    .into(holder.cover);
         }
     }
 
@@ -81,6 +73,8 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
         TextView title;
         TextView authors;
         ImageView cover;
+        int listIndex;
+        Book book;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,7 +86,8 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
 
         @Override
         public void onClick(View view) {
-            // TODO
+            NavDirections action = SearchFragmentDirections.navActionToSearchedBookDetail().setIndex(listIndex);
+            Navigation.findNavController(itemView).navigate(action);
         }
     }
 }

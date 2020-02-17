@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leewilson.libra.R;
 import com.leewilson.libra.adapters.BookSearchListAdapter;
+import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.SearchBooksViewModel;
 
 public class SearchFragment extends Fragment {
@@ -41,13 +44,13 @@ public class SearchFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.search_recyclerview);
         mSearchField = view.findViewById(R.id.books_search_bar);
         mProgressBar = view.findViewById(R.id.search_progress_bar);
-        mViewModel = new ViewModelProvider(this).get(SearchBooksViewModel.class);
+        mViewModel = new ViewModelProvider(getActivity()).get(SearchBooksViewModel.class);
 
         BookSearchListAdapter adapter = new BookSearchListAdapter(view.getContext());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mViewModel.getBookLiveData().observe(getViewLifecycleOwner(), books -> {
+        mViewModel.getBookLiveData().observe(getActivity(), books -> {
             adapter.updateCache(books);
             mProgressBar.setVisibility(View.GONE);
         });

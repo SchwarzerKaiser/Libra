@@ -19,6 +19,20 @@
         android:id="@+id/searchFragment"
         android:name="com.leewilson.libra.views.SearchFragment"
         android:label="search_screen_fragment_layout"
-        tools:layout="@layout/search_screen_fragment_layout" />
+        tools:layout="@layout/search_screen_fragment_layout" >
+        <action
+            android:id="@+id/nav_action_toSearchedBookDetail"
+            app:destination="@+id/searchedBookDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchedBookDetailFragment"
+        android:name="com.leewilson.libra.views.SearchedBookDetailFragment"
+        android:label="fragment_searched_book_detail"
+        tools:layout="@layout/fragment_searched_book_detail" >
+        <argument
+            android:name="index"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
 </navigation>
