@@ -12,18 +12,26 @@ public class Book {
     // API-defined
     private String apiId;
     private String title;
+    private String subtitle;
     private String authors;
     private String description;
     private String thumbnailURL;
 
+    // required no-arg constructor
     public Book(){}
 
     public Book(JSONObject jsonObject) {
         try {
             JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");
+
+            subtitle = volumeInfo.optString("subtitle", "");
             title = volumeInfo.getString("title");
+            if(!subtitle.isEmpty()) title += (": " + subtitle);
+
             authors = volumeInfo.getJSONArray("authors").join(", ").replace("\"", "");
             thumbnailURL = volumeInfo.getJSONObject("imageLinks").getString("smallThumbnail");
+            description = volumeInfo.getString("description");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
