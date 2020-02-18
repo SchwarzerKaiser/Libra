@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent">
 
     <Button
         android:id="@+id/main_menu_search_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/view_to_screen_edge_margin"
-        android:layout_marginTop="@dimen/view_to_screen_edge_margin"
-        android:layout_marginEnd="@dimen/view_to_screen_edge_margin"
-        android:background="@drawable/yellow_shape"
-        android:gravity="start"
-        android:padding="16dp"
-        android:text="@string/search_btn"
-        android:textAllCaps="false"
-        android:textColor="#616060"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

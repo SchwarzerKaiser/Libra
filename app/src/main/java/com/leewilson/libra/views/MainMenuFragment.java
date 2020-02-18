@@ -15,7 +15,7 @@ import com.leewilson.libra.R;
 
 public class MainMenuFragment extends Fragment {
 
-    private Button mSearchBooksField;
+    private Button mSearchBooks;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,11 +26,13 @@ public class MainMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View thisView, Bundle savedInstanceState) {
         super.onViewCreated(thisView, savedInstanceState);
 
-        mSearchBooksField = thisView.findViewById(R.id.main_menu_search_btn);
+        mSearchBooks = thisView.findViewById(R.id.main_menu_search_btn);
 
-        mSearchBooksField.setOnClickListener(view -> {
+        mSearchBooks.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();
             Navigation.findNavController(thisView).navigate(action);
         });
+
+        // TODO: Add CardView main-menu items with flashy UI features
     }
 }

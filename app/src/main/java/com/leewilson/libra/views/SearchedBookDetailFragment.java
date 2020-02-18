@@ -55,5 +55,9 @@ public class SearchedBookDetailFragment extends Fragment {
         mTitle.setText(mBook.getTitle());
         mDescription.setText(mBook.getDescription());
         mAuthors.setText(mBook.getAuthors());
+
+        // TODO: Toolbar still appears. Remove.
+        // TODO: Add social features
+        // TODO: Amazon purchase link?
     }
 }

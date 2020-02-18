@@ -7,28 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.leewilson.libra.R;
 import com.leewilson.libra.adapters.BookSearchListAdapter;
-import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.SearchBooksViewModel;
 
 public class SearchFragment extends Fragment {
 
     private SearchBooksViewModel mViewModel;
     private RecyclerView mRecyclerView;
-    private EditText mSearchField;
+    private TextInputEditText mSearchField;
     private ProgressBar mProgressBar;
 
     @Nullable
@@ -60,6 +57,8 @@ public class SearchFragment extends Fragment {
                 performSearchOperation();
             return true;
         });
+
+        // TODO: Improve layout for RecyclerView. It's currently very boring.
     }
 
     private void toggleKeyboard() {

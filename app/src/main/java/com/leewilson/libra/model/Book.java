@@ -17,7 +17,7 @@ public class Book {
     private String description;
     private String thumbnailURL;
 
-    // required no-arg constructor
+    // required public no-arg constructor
     public Book(){}
 
     public Book(JSONObject jsonObject) {

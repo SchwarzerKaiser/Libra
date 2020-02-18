@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navdrawer_search"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="Search for titles" />
+        <item
+            android:id="@+id/navdrawer_mylibrary"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="My library" />
+        <item
+            android:id="@+id/navdrawer_scanbarcode"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="Scan barcode" />
+    </group>
+</menu>
