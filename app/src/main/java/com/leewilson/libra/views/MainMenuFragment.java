@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -15,7 +16,7 @@ import com.leewilson.libra.R;
 
 public class MainMenuFragment extends Fragment {
 
-    private Button mSearchBooks;
+    private CardView mSearchBooks;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View thisView, Bundle savedInstanceState) {
         super.onViewCreated(thisView, savedInstanceState);
 
-        mSearchBooks = thisView.findViewById(R.id.main_menu_search_btn);
+        mSearchBooks = thisView.findViewById(R.id.search_books_cardview);
 
         mSearchBooks.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();

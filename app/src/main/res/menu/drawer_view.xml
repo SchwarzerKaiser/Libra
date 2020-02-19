@@ -2,17 +2,41 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navdrawer_home"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="Home"
+            android:icon="@drawable/ic_home_black_24dp" />
+
         <item
             android:id="@+id/navdrawer_search"
             android:onClick="onNavDrawerItemSelected"
-            android:title="Search for titles" />
+            android:title="@string/navdraweroption_search"
+            android:icon="@drawable/ic_navdrawer_src" />
+
+        <item
+            android:id="@+id/navdrawer_find_a_store"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="@string/navdraweroption_findastore"
+            android:icon="@drawable/ic_location_on_black_24dp" />
+
         <item
             android:id="@+id/navdrawer_mylibrary"
             android:onClick="onNavDrawerItemSelected"
-            android:title="My library" />
+            android:title="@string/navdraweroption_mylibrary"
+            android:icon="@drawable/ic_navdrawer_mylib" />
         <item
             android:id="@+id/navdrawer_scanbarcode"
             android:onClick="onNavDrawerItemSelected"
-            android:title="Scan barcode" />
+            android:title="@string/navdraweroption_scanbarcode"
+            android:icon="@drawable/ic_camera" />
+
+        <item
+            android:id="@+id/navdrawer_settings"
+            android:onClick="onNavDrawerItemSelected"
+            android:title="@string/navdraweroption_settings"
+            android:icon="@drawable/ic_settings" />
+
     </group>
 </menu>

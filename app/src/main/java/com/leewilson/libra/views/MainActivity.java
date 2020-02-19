@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -49,10 +50,20 @@ public class MainActivity extends AppCompatActivity {
     public void onNavDrawerItemSelected(MenuItem item) {
         switch(item.getItemId()) {
 
+            case R.id.navdrawer_home:
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                        .navigate(R.id.mainMenuFragment);
+                mDrawer.closeDrawer(GravityCompat.START);
+                break;
+
             case R.id.navdrawer_search:
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                         .navigate(R.id.searchFragment);
                 mDrawer.closeDrawer(GravityCompat.START);
+                break;
+
+            case R.id.navdrawer_find_a_store:
+                // TODO: Implement location feature
                 break;
 
             case R.id.navdrawer_mylibrary:
@@ -61,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navdrawer_scanbarcode:
                 // TODO: Research and implement barcode scanner
+                break;
+
+            case R.id.navdrawer_settings:
+                // TODO: Add settings page
                 break;
         }
     }

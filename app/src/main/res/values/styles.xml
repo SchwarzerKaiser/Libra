@@ -17,4 +17,27 @@
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CardTextViewPrimary" parent="Widget.AppCompat.TextView">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+        <item name="android:fontFamily">@font/rubik_light</item>
+        <item name="android:layout_marginBottom">@dimen/card_textview_margin</item>
+        <item name="android:layout_marginTop">@dimen/card_textview_margin</item>
+        <item name="android:layout_marginEnd">@dimen/card_textview_margin</item>
+        <item name="android:layout_marginStart">@dimen/card_textview_margin</item>
+    </style>
+
+    <style name="CardTextViewSecondary" parent="CardTextViewPrimary">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
+    <style name="HomescreenCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_marginStart">@dimen/view_to_screen_edge_margin</item>
+        <item name="android:layout_marginTop">@dimen/view_to_screen_edge_margin</item>
+        <item name="android:layout_marginEnd">@dimen/view_to_screen_edge_margin</item>
+        <item name="android:layout_marginBottom">@dimen/view_to_screen_edge_margin</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardBackgroundColor">@color/colorPage</item>
+    </style>
+
 </resources>
