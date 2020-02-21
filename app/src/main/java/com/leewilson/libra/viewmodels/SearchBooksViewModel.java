@@ -15,7 +15,8 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
 
     private Repository mRepository;
     private MutableLiveData<List<Book>> mSearchBooks;
-    private MutableLiveData<Book> mBookDetail;
+    private MutableLiveData<Book> mSearchListBook;
+    private MutableLiveData<Book> mScannedBook;
 
     // Exposed public methods:
 
@@ -23,10 +24,11 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
         super(application);
         mRepository = new Repository(getApplication().getApplicationContext(), this);
         mSearchBooks = new MutableLiveData<>();
-        mBookDetail = new MutableLiveData<>();
+        mSearchListBook = new MutableLiveData<>();
+        mScannedBook = new MutableLiveData<>();
     }
 
-    public LiveData<List<Book>> getBookLiveData(){
+    public LiveData<List<Book>> getSearchedBooksLiveData(){
         if(mSearchBooks.getValue() == null || mSearchBooks.getValue().isEmpty()) {
             mSearchBooks.setValue(new ArrayList<Book>());
             return mSearchBooks;
@@ -35,14 +37,22 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
         }
     }
 
-    public LiveData<Book> getBookDetail() {
-        return mBookDetail;
+    public LiveData<Book> getSearchedBookLiveData() {
+        return mSearchListBook;
+    }
+
+    public LiveData<Book> getScannedBookLiveData() {
+        return mScannedBook;
     }
 
     public void setBookDetailIndex(int index) {
         if (mSearchBooks.getValue() != null) {
-            mBookDetail.setValue(mSearchBooks.getValue().get(index));
+            mSearchListBook.setValue(mSearchBooks.getValue().get(index));
         } else throw new IllegalArgumentException("Book list is empty");
+    }
+
+    public void setScannedBook(String isbn) {
+        mRepository.fetchScannedBook(isbn);
     }
 
     public void updateSearchQuery(String query) {
@@ -50,8 +60,13 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
     }
 
     @Override
-    public void onReceiveFromApi(List<Book> books) {
+    public void onReceiveBookSearchList(List<Book> books) {
         mSearchBooks.setValue(books);
+    }
+
+    @Override
+    public void onReceiveBookByISBN(Book book) {
+        mScannedBook.setValue(book);
     }
 
     @Override

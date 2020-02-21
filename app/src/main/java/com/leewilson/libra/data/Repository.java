@@ -1,11 +1,10 @@
 package com.leewilson.libra.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.leewilson.libra.model.Book;
@@ -21,13 +20,15 @@ import java.util.concurrent.Executors;
 
 public class Repository {
 
+    private static final String TAG = "Repository";
     private Context mContext;
     private Executor mExecutor;
     private GoogleBooksApiListener mListener;
     private RequestQueue mRequestQueue;
 
     public interface GoogleBooksApiListener {
-        void onReceiveFromApi(List<Book> books);
+        void onReceiveBookSearchList(List<Book> books);
+        void onReceiveBookByISBN(Book book);
         void onApiFailure();
     }
 
@@ -42,31 +43,51 @@ public class Repository {
         mExecutor.execute(() -> searchBooksByQuery(query));
     }
 
+    public void fetchScannedBook(String isbn) {
+        mExecutor.execute(() -> fetchBookByIsbn(isbn));
+    }
+
     private synchronized void searchBooksByQuery(String query) {
         String url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&orderBy=relevance";
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(Request.Method.GET, url,
-                        new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray items = response.getJSONArray("items");
-                            List<Book> bookList = new ArrayList<>();
-                            for(int i = 0; i < items.length(); i++) {
-                                bookList.add(new Book((JSONObject) items.get(i)));
+                        response -> {
+                            try {
+                                JSONArray items = response.getJSONArray("items");
+                                List<Book> bookList = new ArrayList<>();
+                                for(int i = 0; i < items.length(); i++) {
+                                    bookList.add(new Book((JSONObject) items.get(i)));
+                                }
+                                mListener.onReceiveBookSearchList(bookList);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            mListener.onReceiveFromApi(bookList);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                        new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mListener.onApiFailure();
-                    }
-                });
+                        }, error -> mListener.onApiFailure());
+
+        mRequestQueue.add(jsonObjectRequest);
+    }
+
+    private synchronized void fetchBookByIsbn(String isbn) {
+        String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
+        JsonObjectRequest jsonObjectRequest =
+                new JsonObjectRequest(Request.Method.GET, url,
+                        response -> {
+                            try {
+                                JSONArray items = response.getJSONArray("items");
+                                List<Book> bookList = new ArrayList<>();
+                                for (int i = 0; i < items.length(); i++) {
+                                    bookList.add(new Book((JSONObject) items.get(i)));
+                                }
+                                if(!bookList.isEmpty()) {
+                                    mListener.onReceiveBookByISBN(bookList.get(0));
+                                } else {
+                                    mListener.onReceiveBookByISBN(null);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }, error -> { Log.e(TAG, "Something went wrong with this ISBN."); });
+
         mRequestQueue.add(jsonObjectRequest);
     }
 }

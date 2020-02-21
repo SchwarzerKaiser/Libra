@@ -53,13 +53,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navdrawer_home:
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                         .navigate(R.id.mainMenuFragment);
-                mDrawer.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.navdrawer_search:
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                         .navigate(R.id.searchFragment);
-                mDrawer.closeDrawer(GravityCompat.START);
                 break;
 
             case R.id.navdrawer_find_a_store:
@@ -71,12 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.navdrawer_scanbarcode:
-                // TODO: Research and implement barcode scanner
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                        .navigate(R.id.barcodeScannerFragment);
                 break;
 
             case R.id.navdrawer_settings:
                 // TODO: Add settings page
                 break;
         }
+        mDrawer.closeDrawer(GravityCompat.START);
     }
 }

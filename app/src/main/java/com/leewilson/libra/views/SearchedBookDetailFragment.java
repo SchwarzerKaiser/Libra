@@ -42,7 +42,7 @@ public class SearchedBookDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(getActivity()).get(SearchBooksViewModel.class);
-        mViewModel.getBookDetail().observe(getActivity(), book -> mBook = book);
+        mViewModel.getSearchedBookLiveData().observe(getActivity(), book -> mBook = book);
         int index = SearchedBookDetailFragmentArgs.fromBundle(getArguments()).getIndex();
         mViewModel.setBookDetailIndex(index);
 

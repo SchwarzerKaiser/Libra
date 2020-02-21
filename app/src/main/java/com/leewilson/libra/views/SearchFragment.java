@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mViewModel.getBookLiveData().observe(getActivity(), books -> {
+        mViewModel.getSearchedBooksLiveData().observe(getActivity(), books -> {
             adapter.updateCache(books);
             mProgressBar.setVisibility(View.GONE);
         });
