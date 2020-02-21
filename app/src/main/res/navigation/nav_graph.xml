@@ -13,6 +13,9 @@
         <action
             android:id="@+id/nav_action_toSearchScreen"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/nav_action_toBarcodeScanner"
+            app:destination="@id/barcodeScannerFragment" />
     </fragment>
 
     <fragment
@@ -33,6 +36,24 @@
             android:name="index"
             app:argType="integer"
             android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeScannerFragment"
+        android:name="com.leewilson.libra.views.BarcodeScannerFragment"
+        android:label="fragment_barcode_scanner"
+        tools:layout="@layout/fragment_barcode_scanner" >
+        <action
+            android:id="@+id/nav_action_toScannedBook"
+            app:destination="@id/scannedBookFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scannedBookFragment"
+        android:name="com.leewilson.libra.views.ScannedBookFragment"
+        android:label="fragment_scanned_book"
+        tools:layout="@layout/fragment_scanned_book" >
+        <argument
+            android:name="isbn"
+            app:argType="string" />
     </fragment>
 
 </navigation>

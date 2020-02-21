@@ -90,7 +90,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/search_books_cardview2"
+                    android:id="@+id/scan_barcode_cardview"
                     style="@style/HomescreenCardStyle"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content">

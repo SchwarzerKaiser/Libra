@@ -36,7 +36,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/view_to_screen_edge_margin"
-        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/books_search_layout"
         app:layout_constraintStart_toStartOf="@id/books_search_layout"
