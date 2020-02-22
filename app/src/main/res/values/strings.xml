@@ -8,7 +8,6 @@
     <string name="book_detail_title_default">No title available</string>
     <string name="book_detail_title_label">Book title:</string>
     <string name="book_detail_default_authors">No author information</string>
-    <string name="title_activity_dummy">DummyActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -31,7 +30,7 @@
     <string name="goodreads_api_key">Tv7M89vQMfrHps7KlhJOg</string>
     <string name="goodreads_api_secret">vlaoFpZoGh5JZ4RqjCuqIytYXTRLIcgGoxPrSQ5MLjc</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scan_book_not_found_message">Unfortunately this book was not found online. Please try again or search manually.</string>
+    <string name="scan_book_not_found_title">Book not found</string>
 
 </resources>

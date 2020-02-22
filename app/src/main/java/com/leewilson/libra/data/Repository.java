@@ -80,10 +80,10 @@ public class Repository {
                                 }
                                 if(!bookList.isEmpty()) {
                                     mListener.onReceiveBookByISBN(bookList.get(0));
-                                } else {
-                                    mListener.onReceiveBookByISBN(null);
                                 }
                             } catch (JSONException e) {
+                                // Means the book probably wasn't found.
+                                mListener.onReceiveBookByISBN(null);
                                 e.printStackTrace();
                             }
                         }, error -> { Log.e(TAG, "Something went wrong with this ISBN."); });

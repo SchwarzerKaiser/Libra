@@ -1,19 +1,24 @@
 package com.leewilson.libra.views;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.leewilson.libra.R;
 import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.SearchBooksViewModel;
@@ -29,9 +34,7 @@ public class ScannedBookFragment extends Fragment {
     private String mIsbn;
     private SearchBooksViewModel mViewModel;
 
-    public ScannedBookFragment() {
-        // Required empty public constructor
-    }
+    public ScannedBookFragment() { /*Required empty public constructor */ }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +61,17 @@ public class ScannedBookFragment extends Fragment {
     }
 
     private void updateViews() {
+        if (mBook == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(getResources().getString(R.string.scan_book_not_found_message))
+                    .setTitle(getResources().getString(R.string.scan_book_not_found_title))
+                    .setNeutralButton("OK",
+                            (dialogInterface, i) -> Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                            .navigate(R.id.mainMenuFragment));
+            AlertDialog alert = builder.create();
+            alert.show();
+            return;
+        }
         Picasso.get().load(mBook.getThumbnailURL()).into(mCoverImage);
         mTitle.setText(mBook.getTitle());
         mDescription.setText(mBook.getDescription());
