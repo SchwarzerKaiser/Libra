@@ -111,6 +111,7 @@ public class BarcodeScannerFragment extends Fragment implements BarcodeGraphicTr
         }
 
         CameraSource.Builder builder = new CameraSource.Builder(context, barcodeDetector)
+                .setAutoFocusEnabled(autoFocus)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1600, 1024)
                 .setRequestedFps(15.0f);
@@ -172,6 +173,6 @@ public class BarcodeScannerFragment extends Fragment implements BarcodeGraphicTr
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
         NavDirections action = BarcodeScannerFragmentDirections.navActionToScannedBook(barcode.rawValue);
-        Navigation.findNavController(this.getView()).navigate(action);
+        Navigation.findNavController(getView()).navigate(action);
     }
 }

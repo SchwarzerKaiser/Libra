@@ -1,7 +1,5 @@
 package com.leewilson.libra.views;
 
-
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.leewilson.libra.R;
 import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.SearchBooksViewModel;
@@ -65,9 +61,11 @@ public class ScannedBookFragment extends Fragment {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(getResources().getString(R.string.scan_book_not_found_message))
                     .setTitle(getResources().getString(R.string.scan_book_not_found_title))
-                    .setNeutralButton("OK",
-                            (dialogInterface, i) -> Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
-                            .navigate(R.id.mainMenuFragment));
+                    .setNeutralButton("OK", (dialogInterface, i) -> {
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                                .navigate(R.id.mainMenuFragment);
+                        dialogInterface.cancel();
+                    });
             AlertDialog alert = builder.create();
             alert.show();
             return;
