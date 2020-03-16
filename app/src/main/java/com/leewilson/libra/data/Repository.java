@@ -26,17 +26,29 @@ public class Repository {
     private GoogleBooksApiListener mListener;
     private RequestQueue mRequestQueue;
 
+    // Singleton instance
+    private static Repository mInstance;
+
     public interface GoogleBooksApiListener {
         void onReceiveBookSearchList(List<Book> books);
         void onReceiveBookByISBN(Book book);
         void onApiFailure();
     }
 
-    public Repository(Context context, GoogleBooksApiListener listener) {
+    private Repository(Context context, GoogleBooksApiListener listener) {
         mContext = context;
         mExecutor = Executors.newSingleThreadExecutor();
         mListener = listener;
         mRequestQueue = Volley.newRequestQueue(context);
+    }
+
+    public static Repository getInstance(Context context, GoogleBooksApiListener listener) {
+        if (mInstance != null) {
+            return mInstance;
+        } else {
+            mInstance = new Repository(context, listener);
+            return mInstance;
+        }
     }
 
     public void updateBooks(String query) {

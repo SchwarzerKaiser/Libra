@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,13 +43,16 @@ public class SearchFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.search_recyclerview);
         mSearchField = view.findViewById(R.id.books_search_bar);
         mProgressBar = view.findViewById(R.id.search_progress_bar);
-        mViewModel = new ViewModelProvider(getActivity()).get(SearchBooksViewModel.class);
+
+        ViewModelStoreOwner owner = Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                .getViewModelStoreOwner(R.id.search_nav_graph);
+        mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
 
         BookSearchListAdapter adapter = new BookSearchListAdapter(view.getContext());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        mViewModel.getSearchedBooksLiveData().observe(getActivity(), books -> {
+        mViewModel.getSearchedBooksLiveData().observe(getViewLifecycleOwner(), books -> {
             adapter.updateCache(books);
             mProgressBar.setVisibility(View.GONE);
         });
@@ -57,8 +62,6 @@ public class SearchFragment extends Fragment {
                 performSearchOperation();
             return true;
         });
-
-        // TODO: Improve layout for RecyclerView. It's currently very boring.
     }
 
     private void toggleKeyboard() {

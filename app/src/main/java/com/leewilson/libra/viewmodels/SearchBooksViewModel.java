@@ -18,11 +18,9 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
     private MutableLiveData<Book> mSearchListBook;
     private MutableLiveData<Book> mScannedBook;
 
-    // Exposed public methods:
-
     public SearchBooksViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new Repository(getApplication().getApplicationContext(), this);
+        mRepository = Repository.getInstance(application.getApplicationContext(), this);
         mSearchBooks = new MutableLiveData<>();
         mSearchListBook = new MutableLiveData<>();
         mScannedBook = new MutableLiveData<>();

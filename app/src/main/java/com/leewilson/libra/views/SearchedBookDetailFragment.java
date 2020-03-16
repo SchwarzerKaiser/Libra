@@ -6,7 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +28,6 @@ public class SearchedBookDetailFragment extends Fragment {
 
     // Model
     private SearchBooksViewModel mViewModel;
-    private Book mBook;
 
     // UI elements
     private ImageView mBookToolbarImage;
@@ -41,8 +45,19 @@ public class SearchedBookDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel = new ViewModelProvider(getActivity()).get(SearchBooksViewModel.class);
-        mViewModel.getSearchedBookLiveData().observe(getActivity(), book -> mBook = book);
+
+        NavController controller = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        ViewModelStoreOwner owner = controller.getViewModelStoreOwner(R.id.search_nav_graph);
+        mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
+        mViewModel.getSearchedBookLiveData().observe(getViewLifecycleOwner(), new Observer<Book>() {
+            @Override
+            public void onChanged(Book book) {
+                Picasso.get().load(book.getThumbnailURL()).into(mBookToolbarImage);
+                mTitle.setText(book.getTitle());
+                mDescription.setText(book.getDescription());
+                mAuthors.setText(book.getAuthors());
+            }
+        });
         int index = SearchedBookDetailFragmentArgs.fromBundle(getArguments()).getIndex();
         mViewModel.setBookDetailIndex(index);
 
@@ -51,12 +66,6 @@ public class SearchedBookDetailFragment extends Fragment {
         mTitle = view.findViewById(R.id.book_detail_title);
         mAuthors = view.findViewById(R.id.book_detail_authors);
 
-        Picasso.get().load(mBook.getThumbnailURL()).into(mBookToolbarImage);
-        mTitle.setText(mBook.getTitle());
-        mDescription.setText(mBook.getDescription());
-        mAuthors.setText(mBook.getAuthors());
-
-        // TODO: Toolbar still appears. Remove.
         // TODO: Add social features
         // TODO: Amazon purchase link?
     }
