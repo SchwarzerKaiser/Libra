@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.leewilson.libra.R;
+
+import static androidx.navigation.Navigation.findNavController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,25 +42,22 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
-            case R.id.navdrawer_search:
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                        .navigate(R.id.searchedBookDetailFragment);
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void onNavDrawerItemSelected(MenuItem item) {
+
+        NavController controller = findNavController(this, R.id.nav_host_fragment);
+
         switch(item.getItemId()) {
 
             case R.id.navdrawer_home:
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                        .navigate(R.id.mainMenuFragment);
+                controller.navigate(R.id.mainMenuFragment);
                 break;
 
             case R.id.navdrawer_search:
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                        .navigate(R.id.searchFragment);
+                controller.navigate(R.id.search_nav_graph);
                 break;
 
             case R.id.navdrawer_find_a_store:
@@ -69,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.navdrawer_scanbarcode:
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                        .navigate(R.id.barcodeScannerFragment);
+                controller.navigate(R.id.barcodeScannerFragment);
                 break;
 
             case R.id.navdrawer_settings:
                 // TODO: Add settings page
                 break;
         }
+
         mDrawer.closeDrawer(GravityCompat.START);
     }
 }
