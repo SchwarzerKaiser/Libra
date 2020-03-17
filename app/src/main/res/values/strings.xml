@@ -33,4 +33,7 @@
     <string name="scan_book_not_found_message">Unfortunately this book was not found online. Please try again or search manually.</string>
     <string name="scan_book_not_found_title">Book not found</string>
 
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
 </resources>

@@ -18,16 +18,12 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class Repository {
+public class SearchRepository {
 
     private static final String TAG = "Repository";
-    private Context mContext;
     private Executor mExecutor;
     private GoogleBooksApiListener mListener;
     private RequestQueue mRequestQueue;
-
-    // Singleton instance
-    private static Repository mInstance;
 
     public interface GoogleBooksApiListener {
         void onReceiveBookSearchList(List<Book> books);
@@ -35,20 +31,10 @@ public class Repository {
         void onApiFailure();
     }
 
-    private Repository(Context context, GoogleBooksApiListener listener) {
-        mContext = context;
+    public SearchRepository(Context context, GoogleBooksApiListener listener) {
         mExecutor = Executors.newSingleThreadExecutor();
         mListener = listener;
         mRequestQueue = Volley.newRequestQueue(context);
-    }
-
-    public static Repository getInstance(Context context, GoogleBooksApiListener listener) {
-        if (mInstance != null) {
-            return mInstance;
-        } else {
-            mInstance = new Repository(context, listener);
-            return mInstance;
-        }
     }
 
     public void updateBooks(String query) {

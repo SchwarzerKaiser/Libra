@@ -1,12 +1,17 @@
 package com.leewilson.libra.model;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Entity(tableName = "books")
 public class Book {
 
     // Locally defined
-    private int id;
+    @PrimaryKey(autoGenerate = true) private int id;
     private int rating;
 
     // API-defined
@@ -20,6 +25,7 @@ public class Book {
     // required public no-arg constructor
     public Book(){}
 
+    @Ignore
     public Book(JSONObject jsonObject) {
         try {
             JSONObject volumeInfo = jsonObject.getJSONObject("volumeInfo");

@@ -5,22 +5,22 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.leewilson.libra.data.Repository;
+import com.leewilson.libra.data.SearchRepository;
 import com.leewilson.libra.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchBooksViewModel extends AndroidViewModel implements Repository.GoogleBooksApiListener {
+public class SearchBooksViewModel extends AndroidViewModel implements SearchRepository.GoogleBooksApiListener {
 
-    private Repository mRepository;
+    private SearchRepository mSearchRepository;
     private MutableLiveData<List<Book>> mSearchBooks;
     private MutableLiveData<Book> mSearchListBook;
     private MutableLiveData<Book> mScannedBook;
 
     public SearchBooksViewModel(@NonNull Application application) {
         super(application);
-        mRepository = Repository.getInstance(application.getApplicationContext(), this);
+        mSearchRepository = new SearchRepository(application.getApplicationContext(), this);
         mSearchBooks = new MutableLiveData<>();
         mSearchListBook = new MutableLiveData<>();
         mScannedBook = new MutableLiveData<>();
@@ -50,11 +50,11 @@ public class SearchBooksViewModel extends AndroidViewModel implements Repository
     }
 
     public void setScannedBook(String isbn) {
-        mRepository.fetchScannedBook(isbn);
+        mSearchRepository.fetchScannedBook(isbn);
     }
 
     public void updateSearchQuery(String query) {
-        mRepository.updateBooks(query);
+        mSearchRepository.updateBooks(query);
     }
 
     @Override
