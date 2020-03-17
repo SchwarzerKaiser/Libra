@@ -33,9 +33,9 @@ public class LocalRepository {
         });
     }
 
-    public synchronized void fetchBookById(int id, OnFetchItemListener listener) {
+    public synchronized void fetchBookById(String apiId, OnFetchItemListener listener) {
         AsyncTask.execute(() -> {
-            Book result = mDao.findBookById(id);
+            Book result = mDao.findBookByApiId(apiId);
             listener.onReceive(result);
         });
     }

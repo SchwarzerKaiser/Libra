@@ -33,7 +33,7 @@ public class Book {
             subtitle = volumeInfo.optString("subtitle", "");
             title = volumeInfo.getString("title");
             if(!subtitle.isEmpty()) title += (": " + subtitle);
-
+            apiId = jsonObject.getString("id");
             authors = volumeInfo.getJSONArray("authors").join(", ").replace("\"", "");
             thumbnailURL = volumeInfo.getJSONObject("imageLinks").getString("smallThumbnail");
             description = volumeInfo.getString("description");
@@ -97,5 +97,13 @@ public class Book {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,8 +18,8 @@ public interface BookDao {
     @Query("SELECT * FROM books ORDER BY title DESC")
     List<Book> getAllBooks();
 
-    @Query("SELECT * FROM books WHERE id = :id LIMIT 1")
-    Book findBookById(int id);
+    @Query("SELECT * FROM books WHERE apiId = :apiId LIMIT 1")
+    Book findBookByApiId(String apiId);
 
     @Query("SELECT COUNT(*) FROM books WHERE apiId = :apiId")
     int getCountItemsByApiId(String apiId);
@@ -29,6 +30,6 @@ public interface BookDao {
     @Update
     void updateBook(Book book);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertBook(Book book);
 }

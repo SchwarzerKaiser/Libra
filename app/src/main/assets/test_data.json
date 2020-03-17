@@ -1,0 +1,783 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 1856,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "OfOCAAAACAAJ",
+      "etag": "4cu/jxgXaJk",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/OfOCAAAACAAJ",
+      "volumeInfo": {
+        "title": "The Highway Code",
+        "authors": [
+          "Driving Standards Agency for the Department for Transport"
+        ],
+        "publishedDate": "2001-01-01",
+        "description": "The Highway Code is the official government guidance on correct road usage for all categories of road users. There are, on average, 10 deaths on UK roads every day. By reading and following the rules of The Highway Code you can help reduce the number of deaths and injuries on our roads.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0115522905"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780115522901"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 100,
+        "printType": "BOOK",
+        "categories": [
+          "Automobile drivers' tests"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=OfOCAAAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=OfOCAAAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=OfOCAAAACAAJ&dq=test&hl=&cd=1&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=OfOCAAAACAAJ&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/The_Highway_Code.html?hl=&id=OfOCAAAACAAJ"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=OfOCAAAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "The Highway Code is the official government guidance on correct road usage for all categories of road users."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "yHZhswEACAAJ",
+      "etag": "2p5n9Qw2lro",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/yHZhswEACAAJ",
+      "volumeInfo": {
+        "title": "Health, Safety and Environment Test",
+        "subtitle": "For Operatives and Specialists",
+        "authors": [
+          "Construction Industry Training Board (2013- )"
+        ],
+        "publishedDate": "2018",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "1857514777"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9781857514773"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 254,
+        "printType": "BOOK",
+        "categories": [
+          "Construction industry"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=yHZhswEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=yHZhswEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=yHZhswEACAAJ&dq=test&hl=&cd=2&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=yHZhswEACAAJ&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Health_Safety_and_Environment_Test.html?hl=&id=yHZhswEACAAJ"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=yHZhswEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "E0yH0NdySrQC",
+      "etag": "i3rF+YGlbVs",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/E0yH0NdySrQC",
+      "volumeInfo": {
+        "title": "Language Testing in Practice",
+        "subtitle": "Designing and Developing Useful Language Tests",
+        "authors": [
+          "Lyle F. Bachman",
+          "Professor of Applied Linguistics Lyle F Bachman",
+          "Adrian S. Palmer"
+        ],
+        "publisher": "Oxford University Press",
+        "publishedDate": "1996-09-19",
+        "description": "This book relates language testing practice to current views of communicative language teaching and testing. It builds on the theoretical background expounded in Bachman's Fundamental Considerations in Language Testing and examines the design, planning, and organization of tests. The book is divided into three sections which discuss 1) objectives and expectations, the context of language testing, and the abilities to be tested; 2) the process of test development, including blueprints, resources, operationalization, and scoring methods; and 3) ten examples which illustrate the principles discussed in Parts One and Two.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0194371484"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780194371483"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 377,
+        "printType": "BOOK",
+        "categories": [
+          "Foreign Language Study"
+        ],
+        "averageRating": 5.0,
+        "ratingsCount": 2,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.2.1.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=E0yH0NdySrQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=E0yH0NdySrQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=E0yH0NdySrQC&pg=PA17&dq=test&hl=&cd=3&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=E0yH0NdySrQC&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Language_Testing_in_Practice.html?hl=&id=E0yH0NdySrQC"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=E0yH0NdySrQC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "2 \u003cb\u003eTest\u003c/b\u003e usefulness: Qualities of language \u003cb\u003etests\u003c/b\u003e Introduction The most important \u003cbr\u003e\nconsideration in designing and developing a language \u003cb\u003etest\u003c/b\u003e is the use for which it \u003cbr\u003e\nis intended, so that the most important quality of a \u003cb\u003etest\u003c/b\u003e is its usefulness. This may\u003cbr\u003e\n&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "CQuBkXDspBkC",
+      "etag": "+ipjCY7IJ6o",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/CQuBkXDspBkC",
+      "volumeInfo": {
+        "title": "A Manual of Laboratory and Diagnostic Tests",
+        "authors": [
+          "Frances Talaska Fischbach",
+          "Marshall Barnett Dunning"
+        ],
+        "publisher": "Lippincott Williams & Wilkins",
+        "publishedDate": "2009",
+        "description": "Now in its Eighth Edition, this leading comprehensive manual helps nurses deliver safe, effective, and informed care for patients undergoing diagnostic tests and procedures. The book covers a broad range of laboratory and diagnostic tests and studies that are delivered to varied patient populations in varied settings. Tests are grouped according to specimen and function/test type (e.g. blood, urine, stool, cerebrospinal fluid, etc.). Each test is described in detail, with step-by-step guidance on correct procedure, tips for accurate interpretation, and instructions for patient preparation and aftercare. Clinical Alerts highlight critical safety information.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0781771943"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780781771948"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 1317,
+        "printType": "BOOK",
+        "categories": [
+          "Medical"
+        ],
+        "averageRating": 5.0,
+        "ratingsCount": 3,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "3.2.2.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=CQuBkXDspBkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=CQuBkXDspBkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=CQuBkXDspBkC&pg=PA138&dq=test&hl=&cd=4&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=CQuBkXDspBkC&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/A_Manual_of_Laboratory_and_Diagnostic_Te.html?hl=&id=CQuBkXDspBkC"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=CQuBkXDspBkC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Explain \u003cb\u003etest\u003c/b\u003e purpose and procedure to parents. 2. Obstetric complications may \u003cbr\u003e\nlead to significant morbidity and mortality for the mothers of these infants. 3. \u003cbr\u003e\nProvide genetic counseling in a Sensitive manner. 4. See Chapter 1 guidelines \u003cbr\u003e\nfor safe,&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "Pqcesk8iZzMC",
+      "etag": "COC5rZfmjzI",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/Pqcesk8iZzMC",
+      "volumeInfo": {
+        "title": "Charpy Impact Test",
+        "subtitle": "Factors and Variables",
+        "authors": [
+          "John M. Holt"
+        ],
+        "publisher": "ASTM International",
+        "publishedDate": "1990-01-01",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0803112955"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780803112957"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 214,
+        "printType": "BOOK",
+        "categories": [
+          "Compliance"
+        ],
+        "averageRating": 5.0,
+        "ratingsCount": 1,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.1.1.0.preview.0",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=Pqcesk8iZzMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=Pqcesk8iZzMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=Pqcesk8iZzMC&pg=PA193&dq=test&hl=&cd=5&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=Pqcesk8iZzMC&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Charpy_Impact_Test.html?hl=&id=Pqcesk8iZzMC"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=Pqcesk8iZzMC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "John M. Holt, Editor, American Society for \u003cb\u003eTesting\u003c/b\u003e and Materials, Philadelphia, \u003cbr\u003e\n1990. ABSTRACT: The Charpy V-notch (CVN) impact \u003cb\u003etest\u003c/b\u003e is used extensively for \u003cbr\u003e\ndetermining the toughness of structural materials . Research programs in many&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "5uRIb3emLY8C",
+      "etag": "Nm5tMorU59E",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/5uRIb3emLY8C",
+      "volumeInfo": {
+        "title": "Tensile Testing, 2nd Edition",
+        "subtitle": "",
+        "authors": [
+          "Joseph R. Davis"
+        ],
+        "publisher": "ASM International",
+        "publishedDate": "2004",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781615030958"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1615030956"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 283,
+        "printType": "BOOK",
+        "categories": [
+          "Brittleness"
+        ],
+        "averageRating": 3.0,
+        "ratingsCount": 8,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "2.0.0.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=5uRIb3emLY8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=5uRIb3emLY8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=5uRIb3emLY8C&pg=PA115&dq=test&hl=&cd=6&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=5uRIb3emLY8C&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=5uRIb3emLY8C"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 117.56,
+          "currencyCode": "GBP"
+        },
+        "retailPrice": {
+          "amount": 76.41,
+          "currencyCode": "GBP"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=5uRIb3emLY8C&rdid=book-5uRIb3emLY8C&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 1.1756E8,
+              "currencyCode": "GBP"
+            },
+            "retailPrice": {
+              "amountInMicros": 7.641E7,
+              "currencyCode": "GBP"
+            },
+            "giftable": true
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.co.uk/books/download/Tensile_Testing_2nd_Edition-sample-pdf.acsm?id=5uRIb3emLY8C&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=5uRIb3emLY8C&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Tensile. \u003cb\u003eTesting\u003c/b\u003e. of. Metals. and. Alloys. Young&#39;s modulus for iron (207 GPa, or 30 \u003cbr\u003e\nAnelasticity Young&#39;s. CHAPTER. 7. THE TENSILE \u003cb\u003eTEST\u003c/b\u003e provides a relatively \u003cbr\u003e\neasy, inexpensive technique for developing mechanical property data for the&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "cR5pNv76HMgC",
+      "etag": "VPDQnkMSwas",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/cR5pNv76HMgC",
+      "volumeInfo": {
+        "title": "Compression Testing of Homogeneous Materials and Composites",
+        "subtitle": "A Symposium",
+        "authors": [
+          "Richard Chait"
+        ],
+        "publisher": "ASTM International",
+        "publishedDate": "1983",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "0803102488"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9780803102484"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 294,
+        "printType": "BOOK",
+        "categories": [
+          "Composite materials"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.0.2.0.preview.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=cR5pNv76HMgC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=cR5pNv76HMgC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=cR5pNv76HMgC&pg=PA78&dq=test&hl=&cd=7&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=cR5pNv76HMgC&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Compression_Testing_of_Homogeneous_Mater.html?hl=&id=cR5pNv76HMgC"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=cR5pNv76HMgC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Ivan A. Martorell&#39; On the Ring Compression \u003cb\u003eTest\u003c/b\u003e REFERENCE: Martorell, I.A., “\u003cbr\u003e\nOn the Ring Compression \u003cb\u003eTest\u003c/b\u003e,” Compression \u003cb\u003eTesting\u003c/b\u003e of Homogeneous \u003cbr\u003e\nMaterials and Composites, ASTM STP808, Richard Chait and Ralph Papirno, \u003cbr\u003e\nEds.,&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "lMTIIQb-MO8C",
+      "etag": "K4EmNDiaD1I",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/lMTIIQb-MO8C",
+      "volumeInfo": {
+        "title": "PRO 31: International RILEM Workshop on Test and Design Methods for Steel Fibre Reinforced Concrete - Background and Experiences",
+        "authors": [
+          "Bernd Schnütgen",
+          "Lucie Vandewalle"
+        ],
+        "publisher": "RILEM Publications",
+        "publishedDate": "2003",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "2912143381"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9782912143389"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 209,
+        "printType": "BOOK",
+        "categories": [
+          "Cement composites"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "0.2.2.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=lMTIIQb-MO8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=lMTIIQb-MO8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=lMTIIQb-MO8C&pg=PA1&dq=test&hl=&cd=8&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=lMTIIQb-MO8C&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/PRO_31_International_RILEM_Workshop_on_T.html?hl=&id=lMTIIQb-MO8C"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=lMTIIQb-MO8C&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Abstract The &quot;draft recommendation&quot; of the bending \u003cb\u003etest\u003c/b\u003e has been published in \u003cbr\u003e\n2000 [1]. In the Brite Euram project BRPR-CT98-0813 (1999-2002) a round robin \u003cbr\u003e\n\u003cb\u003etest\u003c/b\u003e programme was carried out on the bending \u003cb\u003etest\u003c/b\u003e. Both plain concrete and&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "ET4cnwEACAAJ",
+      "etag": "cBJJ8N6RyAM",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/ET4cnwEACAAJ",
+      "volumeInfo": {
+        "title": "The Mom Test",
+        "subtitle": "How to Talk to Customers and Learn If Your Business is a Good Idea when Everyone is Lying to You",
+        "authors": [
+          "Rob Fitzpatrick"
+        ],
+        "publisher": "Createspace Independent Publishing Platform",
+        "publishedDate": "2014",
+        "description": "The Mom Test is a quick, practical guide that will save you time, money, and heartbreak. They say you shouldn't ask your mom whether your business is a good idea, because she loves you and will lie to you. This is technically true, but it misses the point. You shouldn't ask anyone if your business is a good idea. It's a bad question and everyone will lie to you at least a little . As a matter of fact, it's not their responsibility to tell you the truth. It's your responsibility to find it and it's worth doing right . Talking to customers is one of the foundational skills of both Customer Development and Lean Startup. We all know we're supposed to do it, but nobody seems willing to admit that it's easy to screw up and hard to do right. This book is going to show you how customer conversations go wrong and how you can do better.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "1492180742"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9781492180746"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "pageCount": 135,
+        "printType": "BOOK",
+        "categories": [
+          "Business communication"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=ET4cnwEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=ET4cnwEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=ET4cnwEACAAJ&dq=test&hl=&cd=9&source=gbs_api",
+        "infoLink": "http://books.google.co.uk/books?id=ET4cnwEACAAJ&dq=test&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/The_Mom_Test.html?hl=&id=ET4cnwEACAAJ"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=ET4cnwEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "We all know we&#39;re supposed to do it, but nobody seems willing to admit that it&#39;s easy to screw up and hard to do right. This book is going to show you how customer conversations go wrong and how you can do better."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "zQeFAQAAQBAJ",
+      "etag": "HWUfvfrQiIU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/zQeFAQAAQBAJ",
+      "volumeInfo": {
+        "title": "Saving The Test",
+        "authors": [
+          "Mike Jakeman"
+        ],
+        "publisher": "Ockley Books Ltd",
+        "publishedDate": "2013-10-18",
+        "description": "As it approaches its 140th birthday, Test cricket remains the most rich, complex and beguiling sport of all. However, it is under pressure like never before. Eclipsed by the heady glamour of Twenty20, compromised by poor administration and struggling to escape a decade of corruption scandals, five-day cricket faces an uncertain future.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781783012442"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1783012447"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 204,
+        "printType": "BOOK",
+        "categories": [
+          "Sports & Recreation"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.1.1.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=zQeFAQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=zQeFAQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.co.uk/books?id=zQeFAQAAQBAJ&printsec=frontcover&dq=test&hl=&cd=10&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=zQeFAQAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://play.google.com/store/books/details?id=zQeFAQAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "GB",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 3.99,
+          "currencyCode": "GBP"
+        },
+        "retailPrice": {
+          "amount": 2.99,
+          "currencyCode": "GBP"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=zQeFAQAAQBAJ&rdid=book-zQeFAQAAQBAJ&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 3990000.0,
+              "currencyCode": "GBP"
+            },
+            "retailPrice": {
+              "amountInMicros": 2990000.0,
+              "currencyCode": "GBP"
+            },
+            "giftable": true
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "GB",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true
+        },
+        "pdf": {
+          "isAvailable": true
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=zQeFAQAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "As it approaches its 140th birthday, Test cricket remains the most rich, complex and beguiling sport of all."
+      }
+    }
+  ]
+}
