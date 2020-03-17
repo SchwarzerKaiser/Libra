@@ -16,6 +16,9 @@
         <action
             android:id="@+id/nav_action_toBarcodeScanner"
             app:destination="@id/barcodeScannerFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_myLibraryFragment"
+            app:destination="@id/myLibraryFragment" />
     </fragment>
 
     <fragment
@@ -59,5 +62,17 @@
                 app:argType="integer" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/myLibraryFragment"
+        android:name="com.leewilson.libra.views.MyLibraryFragment"
+        android:label="MyLibraryFragment" >
+        <action
+            android:id="@+id/action_myLibraryFragment_to_myLibraryDetailFragment"
+            app:destination="@id/myLibraryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myLibraryDetailFragment"
+        android:name="com.leewilson.libra.views.MyLibraryDetailFragment"
+        android:label="MyLibraryDetailFragment" />
 
 </navigation>

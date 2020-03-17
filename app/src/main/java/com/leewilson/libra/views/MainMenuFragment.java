@@ -18,6 +18,7 @@ public class MainMenuFragment extends Fragment {
 
     private CardView mSearchBooks;
     private CardView mBarcodeScan;
+    private CardView mMyLibrary;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class MainMenuFragment extends Fragment {
 
         mSearchBooks = thisView.findViewById(R.id.search_books_cardview);
         mBarcodeScan = thisView.findViewById(R.id.scan_barcode_cardview);
+        mMyLibrary = thisView.findViewById(R.id.menu_mylibrary_cardview);
 
         mSearchBooks.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();
@@ -39,6 +41,14 @@ public class MainMenuFragment extends Fragment {
         mBarcodeScan.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToBarcodeScanner();
             Navigation.findNavController(thisView).navigate(action);
+        });
+
+        mMyLibrary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = MainMenuFragmentDirections.actionMainMenuFragmentToMyLibraryFragment();
+                Navigation.findNavController(thisView).navigate(action);
+            }
         });
     }
 }
