@@ -128,7 +128,7 @@ public class DatabaseTest {
     }
 
     @Test
-    public void checkForBookFailure() throws JSONException {
+    public void checkForBookFailure() {
         populateDatabase();
         Book bookToSearch = new Book();
         bookToSearch.setId(-1);

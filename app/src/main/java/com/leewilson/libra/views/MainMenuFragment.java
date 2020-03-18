@@ -16,10 +16,6 @@ import com.leewilson.libra.R;
 
 public class MainMenuFragment extends Fragment {
 
-    private CardView mSearchBooks;
-    private CardView mBarcodeScan;
-    private CardView mMyLibrary;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu_fragment_layout, container, false);
@@ -29,26 +25,23 @@ public class MainMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View thisView, Bundle savedInstanceState) {
         super.onViewCreated(thisView, savedInstanceState);
 
-        mSearchBooks = thisView.findViewById(R.id.search_books_cardview);
-        mBarcodeScan = thisView.findViewById(R.id.scan_barcode_cardview);
-        mMyLibrary = thisView.findViewById(R.id.menu_mylibrary_cardview);
+        CardView searchBooks = thisView.findViewById(R.id.search_books_cardview);
+        CardView barcodeScan = thisView.findViewById(R.id.scan_barcode_cardview);
+        CardView myLibrary = thisView.findViewById(R.id.menu_mylibrary_cardview);
 
-        mSearchBooks.setOnClickListener(view -> {
+        searchBooks.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();
             Navigation.findNavController(thisView).navigate(action);
         });
 
-        mBarcodeScan.setOnClickListener(view -> {
+        barcodeScan.setOnClickListener(view -> {
             NavDirections action = MainMenuFragmentDirections.navActionToBarcodeScanner();
             Navigation.findNavController(thisView).navigate(action);
         });
 
-        mMyLibrary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavDirections action = MainMenuFragmentDirections.actionMainMenuFragmentToMyLibraryFragment();
-                Navigation.findNavController(thisView).navigate(action);
-            }
+        myLibrary.setOnClickListener(view -> {
+            NavDirections action = MainMenuFragmentDirections.actionMainMenuFragmentToMyLibraryFragment();
+            Navigation.findNavController(thisView).navigate(action);
         });
     }
 }
