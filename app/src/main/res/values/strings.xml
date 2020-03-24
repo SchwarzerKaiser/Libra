@@ -35,5 +35,8 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="mylibrary_tab_all">ALL</string>
+    <string name="mylibrary_tab_rated">RATED</string>
+    <string name="mylibrary_tab_reviewed">REVIEWED</string>
 
 </resources>

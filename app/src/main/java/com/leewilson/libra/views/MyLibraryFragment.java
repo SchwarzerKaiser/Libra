@@ -34,7 +34,7 @@ public class MyLibraryFragment extends Fragment {
         mViewPager = view.findViewById(R.id.mylibrary_viewpager_container);
         setupViewPager(mViewPager);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.mylibrary_tabs);
+        TabLayout tabLayout = view.findViewById(R.id.mylibrary_tabs);
         tabLayout.setupWithViewPager(mViewPager);
         return view;
     }
@@ -42,9 +42,9 @@ public class MyLibraryFragment extends Fragment {
     private void setupViewPager(ViewPager viewPager) {
         mSectionsPageAdapter = new SectionsPageAdapter(getActivity().getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mSectionsPageAdapter.addFragment(new MyLibraryListTabFragment(), "ALL");
-        mSectionsPageAdapter.addFragment(new MyLibraryRatedTabFragment(), "RATED");
-        mSectionsPageAdapter.addFragment(new MyLibraryReviewedTabFragment(), "REVIEWED");
+        mSectionsPageAdapter.addFragment(new MyLibraryListTabFragment(), getString(R.string.mylibrary_tab_all));
+        mSectionsPageAdapter.addFragment(new MyLibraryRatedTabFragment(), getString(R.string.mylibrary_tab_rated));
+        mSectionsPageAdapter.addFragment(new MyLibraryReviewedTabFragment(), getString(R.string.mylibrary_tab_reviewed));
         viewPager.setAdapter(mSectionsPageAdapter);
     }
 }

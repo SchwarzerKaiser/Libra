@@ -8,6 +8,6 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
-
+    <color name="colorCheckMarkGreen">#8BC34A</color>
     <color name="colorPage">#fffde7</color>
 </resources>

@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.leewilson.libra.data.LocalRepository;
 import com.leewilson.libra.data.SearchRepository;
 import com.leewilson.libra.model.Book;
 
@@ -14,16 +16,16 @@ import java.util.List;
 public class SearchBooksViewModel extends AndroidViewModel implements SearchRepository.GoogleBooksApiListener {
 
     private SearchRepository mSearchRepository;
-    private MutableLiveData<List<Book>> mSearchBooks;
-    private MutableLiveData<Book> mSearchListBook;
-    private MutableLiveData<Book> mScannedBook;
+    private LocalRepository mLocalRepository;
+    private MutableLiveData<List<Book>> mSearchBooks = new MutableLiveData<>();
+    private MutableLiveData<Book> mSearchListBook = new MutableLiveData<>();
+    private MutableLiveData<Book> mScannedBook = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsStoredLocally = new MutableLiveData<>();
 
     public SearchBooksViewModel(@NonNull Application application) {
         super(application);
         mSearchRepository = new SearchRepository(application.getApplicationContext(), this);
-        mSearchBooks = new MutableLiveData<>();
-        mSearchListBook = new MutableLiveData<>();
-        mScannedBook = new MutableLiveData<>();
+        mLocalRepository = new LocalRepository(application.getApplicationContext());
     }
 
     public LiveData<List<Book>> getSearchedBooksLiveData(){
@@ -43,6 +45,8 @@ public class SearchBooksViewModel extends AndroidViewModel implements SearchRepo
         return mScannedBook;
     }
 
+    public LiveData<Boolean> getIsStoredLocallyLiveData() { return mIsStoredLocally; }
+
     public void setBookDetailIndex(int index) {
         if (mSearchBooks.getValue() != null) {
             mSearchListBook.setValue(mSearchBooks.getValue().get(index));
@@ -57,6 +61,14 @@ public class SearchBooksViewModel extends AndroidViewModel implements SearchRepo
         mSearchRepository.updateBooks(query);
     }
 
+    public void addToMyLibrary(Book book) {
+        mLocalRepository.insertBook(book);
+    }
+
+    public void checkIsStoredLocally(Book book) {
+        mLocalRepository.checkIsStoredLocally(book.getApiId(), isStoredLocally -> mIsStoredLocally.postValue(isStoredLocally));
+    }
+
     @Override
     public void onReceiveBookSearchList(List<Book> books) {
         mSearchBooks.setValue(books);
@@ -68,7 +80,5 @@ public class SearchBooksViewModel extends AndroidViewModel implements SearchRepo
     }
 
     @Override
-    public void onApiFailure() {
-
-    }
+    public void onApiFailure() {}
 }

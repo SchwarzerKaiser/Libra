@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.navdrawer_mylibrary:
-                // TODO: Implement MyLibrary feature
+                controller.navigate(R.id.myLibraryFragment);
                 break;
 
             case R.id.navdrawer_scanbarcode:
