@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mylibrary_all_recyclerview"
         tools:listitem="@layout/mylibrary_book_item"
         android:orientation="vertical"
         android:layout_width="match_parent"

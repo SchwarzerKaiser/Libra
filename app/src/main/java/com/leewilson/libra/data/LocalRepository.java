@@ -18,7 +18,7 @@ public class LocalRepository {
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
     public interface OnFetchItemListener { void onReceive(Book book); }
-    public interface OnFetchAllItemsListener { void onReceive(List<Book> book); }
+    public interface OnFetchAllItemsListener { void onReceive(List<Book> books); }
     public interface OnContainsItemListener { void onCheckedItem(boolean isStoredLocally); }
 
     public LocalRepository(Context context) {

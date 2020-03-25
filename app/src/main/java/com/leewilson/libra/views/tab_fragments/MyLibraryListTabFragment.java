@@ -1,8 +1,56 @@
 package com.leewilson.libra.views.tab_fragments;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MyLibraryListTabFragment extends Fragment {
+import com.leewilson.libra.R;
+import com.leewilson.libra.adapters.BookSearchListAdapter;
+import com.leewilson.libra.model.Book;
 
+import java.util.ArrayList;
+import java.util.List;
 
+public class MyLibraryListTabFragment extends Fragment implements Tabbable {
+
+    private RecyclerView mRecyclerView;
+    private BookSearchListAdapter mAdapter;
+
+    private static final String TAG = "MyLibraryListTabFragment";
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
+        View view = inflater.inflate(R.layout.fragment_mylibrary_tab_all, container, false);
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+        mRecyclerView = view.findViewById(R.id.mylibrary_all_recyclerview);
+        mAdapter = new BookSearchListAdapter(getContext());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void setData(List<Book> books) {
+        mAdapter.updateCache(books);
+    }
+
+    @Override
+    public void clearData() {
+        mAdapter.updateCache(new ArrayList<>());
+    }
 }
