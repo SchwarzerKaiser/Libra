@@ -25,10 +25,8 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
 
     private List<Book> mData = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
-    private Context mContext;
 
     public BookSearchListAdapter(Context context) {
-        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
 

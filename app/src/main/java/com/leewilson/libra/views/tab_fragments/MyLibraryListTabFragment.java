@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leewilson.libra.R;
 import com.leewilson.libra.adapters.BookSearchListAdapter;
+import com.leewilson.libra.adapters.MyLibraryAdapter;
 import com.leewilson.libra.model.Book;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 public class MyLibraryListTabFragment extends Fragment implements Tabbable {
 
     private RecyclerView mRecyclerView;
-    private BookSearchListAdapter mAdapter;
+    private MyLibraryAdapter mAdapter;
 
     private static final String TAG = "MyLibraryListTabFragment";
 
@@ -39,7 +40,7 @@ public class MyLibraryListTabFragment extends Fragment implements Tabbable {
 
     private void init(View view) {
         mRecyclerView = view.findViewById(R.id.mylibrary_all_recyclerview);
-        mAdapter = new BookSearchListAdapter(getContext());
+        mAdapter = new MyLibraryAdapter(getContext());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
     }

@@ -25,6 +25,7 @@ import com.leewilson.libra.views.tab_fragments.MyLibraryRatedTabFragment;
 import com.leewilson.libra.views.tab_fragments.MyLibraryReviewedTabFragment;
 import com.leewilson.libra.views.tab_fragments.Tabbable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyLibraryFragment extends Fragment {
@@ -34,6 +35,7 @@ public class MyLibraryFragment extends Fragment {
     private ViewPager mViewPager;
     private MyLibraryViewModel mViewModel;
     private List<Book> mBooks;
+    private int mCurrentPage = 0;
 
     @Nullable
     @Override
@@ -67,8 +69,11 @@ public class MyLibraryFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 Log.d(TAG, "onPageSelected: Position:" + position);
-                Tabbable tabbable = (Tabbable) mSectionsPageAdapter.getItem(position);
-                tabbable.setData(mBooks);
+                Tabbable selectedTab = (Tabbable) mSectionsPageAdapter.getItem(position);
+                selectedTab.setData(mBooks);
+                Tabbable previousTab = (Tabbable) mSectionsPageAdapter.getItem(mCurrentPage);
+                previousTab.setData(new ArrayList<>());
+                mCurrentPage = position;
             }
 
             @Override
