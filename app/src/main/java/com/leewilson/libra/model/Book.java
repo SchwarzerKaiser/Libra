@@ -42,7 +42,7 @@ public class Book {
             } else authors = "";
 
             thumbnailURL = volumeInfo.getJSONObject("imageLinks").getString("smallThumbnail");
-            description = volumeInfo.getString("description");
+            description = volumeInfo.optString("description", "No description");
 
         } catch (JSONException e) {
             e.printStackTrace();

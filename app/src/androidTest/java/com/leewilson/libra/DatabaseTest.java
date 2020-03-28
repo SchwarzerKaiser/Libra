@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import com.leewilson.libra.TestingUtils;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -33,18 +34,17 @@ public class DatabaseTest {
 
     private BookDao mDao;
     private AppDatabase db;
-    private Context mContext;
     private JSONArray mTestData;
 
     @Before
     public void setup() throws IOException {
-        mContext = ApplicationProvider.getApplicationContext();
+        Context mContext = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(mContext, AppDatabase.class)
                 .fallbackToDestructiveMigration()
                 .build();
         mDao = db.getBookDao();
 
-        String jsonRaw = getAssetJsonData(mContext);
+        String jsonRaw = TestingUtils.getAssetJsonData(mContext);
         try {
             JSONObject json = new JSONObject(jsonRaw);
             mTestData = json.getJSONArray("items");
@@ -135,29 +135,6 @@ public class DatabaseTest {
         boolean dbHasBook = mDao.getCountItemsByApiId(bookToSearch.getApiId()) > 0;
         assertThat(dbHasBook, is(equalTo(false)));
         db.clearAllTables();
-    }
-
-    /**
-     * Helper method to get dummy JSON data.
-     *
-     * @param context
-     * @return JSON string
-     */
-    private static String getAssetJsonData(Context context) {
-        String json = null;
-        try {
-            InputStream is = context.getAssets().open("test_data.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, StandardCharsets.UTF_8);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        Log.e("data", json);
-        return json;
     }
 
     private void populateDatabase() {
