@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +35,12 @@ public class Book {
             title = volumeInfo.getString("title");
             if(!subtitle.isEmpty()) title += (": " + subtitle);
             apiId = jsonObject.getString("id");
-            authors = volumeInfo.getJSONArray("authors").join(", ").replace("\"", "");
+            JSONArray authorsArray = volumeInfo.getJSONArray("authors");
+
+            if(authorsArray != null) {
+                authors = authorsArray.join(", ").replace("\"", "");
+            } else authors = "";
+
             thumbnailURL = volumeInfo.getJSONObject("imageLinks").getString("smallThumbnail");
             description = volumeInfo.getString("description");
 

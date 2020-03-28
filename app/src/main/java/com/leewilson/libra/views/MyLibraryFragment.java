@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.leewilson.libra.R;
 import com.leewilson.libra.adapters.SectionsPageAdapter;
 import com.leewilson.libra.model.Book;
+import com.leewilson.libra.utils.FilterKt;
 import com.leewilson.libra.viewmodels.MyLibraryViewModel;
 import com.leewilson.libra.views.tab_fragments.MyLibraryListTabFragment;
 import com.leewilson.libra.views.tab_fragments.MyLibraryRatedTabFragment;
@@ -36,6 +38,7 @@ public class MyLibraryFragment extends Fragment {
     private MyLibraryViewModel mViewModel;
     private List<Book> mBooks;
     private int mCurrentPage = 0;
+    private SearchView mSearchView;
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class MyLibraryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_mylibrary, container, false);
         mViewPager = view.findViewById(R.id.mylibrary_viewpager_container);
+        mSearchView = view.findViewById(R.id.searchView);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = view.findViewById(R.id.mylibrary_tabs);
@@ -72,13 +76,27 @@ public class MyLibraryFragment extends Fragment {
                 Tabbable selectedTab = (Tabbable) mSectionsPageAdapter.getItem(position);
                 selectedTab.setData(mBooks);
                 Tabbable previousTab = (Tabbable) mSectionsPageAdapter.getItem(mCurrentPage);
-                previousTab.setData(new ArrayList<>());
+                previousTab.clearData();
                 mCurrentPage = position;
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                 // Do nothing
+            }
+        });
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<Book> filtered = FilterKt.filterBy(mBooks, newText);
+                sendDataToCurrentTab(filtered);
+                return false;
             }
         });
 
@@ -92,5 +110,10 @@ public class MyLibraryFragment extends Fragment {
         mSectionsPageAdapter.addFragment(new MyLibraryRatedTabFragment(), getString(R.string.mylibrary_tab_rated));
         mSectionsPageAdapter.addFragment(new MyLibraryReviewedTabFragment(), getString(R.string.mylibrary_tab_reviewed));
         viewPager.setAdapter(mSectionsPageAdapter);
+    }
+
+    private void sendDataToCurrentTab(List<Book> books) {
+        Tabbable tab = (Tabbable) mSectionsPageAdapter.getItem(mViewPager.getCurrentItem());
+        tab.setData(books);
     }
 }

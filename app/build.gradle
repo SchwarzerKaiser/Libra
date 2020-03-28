@@ -23,6 +23,7 @@ android {
 }
 
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'kotlin-android'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
