@@ -36,8 +36,7 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.mylibrary_book_item, parent, false);
-        ViewHolder holder = new ViewHolder(itemView);
-        return holder;
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -46,6 +45,7 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
         holder.title.setText(thisBook.getTitle());
         holder.authors.setText(thisBook.getAuthors());
         String thumbnailUrl = thisBook.getThumbnailURL();
+        holder.cover.setImageDrawable(null);
         if(!TextUtils.isEmpty(thumbnailUrl)) {
             Picasso.get().load(thumbnailUrl)
                     .error(R.drawable.book_placeholder)
@@ -61,13 +61,13 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
         return mData.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView cover;
-        TextView title;
-        TextView authors;
+        final TextView title;
+        final TextView authors;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             cover = itemView.findViewById(R.id.mylibrary_all_item_image);
             title = itemView.findViewById(R.id.mylibrary_all_item_title);

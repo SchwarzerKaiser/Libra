@@ -61,11 +61,14 @@ public class SearchFragment extends Fragment {
                 performSearchOperation();
             return true;
         });
+
+        toggleKeyboard();
     }
 
     private void toggleKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        mSearchField.requestFocus();
     }
 
     private void performSearchOperation() {
