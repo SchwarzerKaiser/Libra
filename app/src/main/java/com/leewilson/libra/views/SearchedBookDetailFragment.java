@@ -59,7 +59,7 @@ public class SearchedBookDetailFragment extends Fragment {
         mAuthors = view.findViewById(R.id.book_detail_authors);
         mFab = view.findViewById(R.id.add_book_to_library_fab);
 
-        NavController controller = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         ViewModelStoreOwner owner = controller.getViewModelStoreOwner(R.id.search_nav_graph);
         mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
         mViewModel.getSearchedBookLiveData().observe(getViewLifecycleOwner(), new Observer<Book>() {

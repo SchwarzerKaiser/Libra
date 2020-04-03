@@ -22,7 +22,6 @@ import java.util.List;
 
 public class MyLibraryListTabFragment extends Fragment implements Tabbable {
 
-    private RecyclerView mRecyclerView;
     private MyLibraryAdapter mAdapter;
 
     private static final String TAG = "MyLibraryListTabFragment";
@@ -39,10 +38,10 @@ public class MyLibraryListTabFragment extends Fragment implements Tabbable {
     }
 
     private void init(View view) {
-        mRecyclerView = view.findViewById(R.id.mylibrary_all_recyclerview);
+        RecyclerView recyclerView = view.findViewById(R.id.mylibrary_all_recyclerview);
         mAdapter = new MyLibraryAdapter(getContext());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

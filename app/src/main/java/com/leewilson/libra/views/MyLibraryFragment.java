@@ -54,7 +54,7 @@ public class MyLibraryFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.mylibrary_tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        ViewModelStoreOwner owner = Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+        ViewModelStoreOwner owner = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .getViewModelStoreOwner(R.id.mylibrary_nav_graph);
         mViewModel = new ViewModelProvider(owner).get(MyLibraryViewModel.class);
         mViewModel.getAllBooksLiveData().observe(getViewLifecycleOwner(), books -> {
@@ -72,7 +72,6 @@ public class MyLibraryFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG, "onPageSelected: Position:" + position);
                 Tabbable selectedTab = (Tabbable) mSectionsPageAdapter.getItem(position);
                 selectedTab.setData(mBooks);
                 Tabbable previousTab = (Tabbable) mSectionsPageAdapter.getItem(mCurrentPage);

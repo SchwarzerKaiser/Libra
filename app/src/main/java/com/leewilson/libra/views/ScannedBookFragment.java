@@ -48,8 +48,8 @@ public class ScannedBookFragment extends Fragment {
         mCoverImage = view.findViewById(R.id.toolbarBookImage);
 
         mIsbn = getArguments().getString("isbn");
-        mViewModel = new ViewModelProvider(getActivity()).get(SearchBooksViewModel.class);
-        mViewModel.getScannedBookLiveData().observe(getActivity(), book -> {
+        mViewModel = new ViewModelProvider(requireActivity()).get(SearchBooksViewModel.class);
+        mViewModel.getScannedBookLiveData().observe(getViewLifecycleOwner(), book -> {
             mBook = book;
             updateViews();
         });
@@ -58,11 +58,11 @@ public class ScannedBookFragment extends Fragment {
 
     private void updateViews() {
         if (mBook == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
             builder.setMessage(getResources().getString(R.string.scan_book_not_found_message))
                     .setTitle(getResources().getString(R.string.scan_book_not_found_title))
                     .setNeutralButton("OK", (dialogInterface, i) -> {
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+                        Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                                 .navigate(R.id.mainMenuFragment);
                         dialogInterface.cancel();
                     });

@@ -36,11 +36,7 @@ public class Book {
             if(!subtitle.isEmpty()) title += (": " + subtitle);
             apiId = jsonObject.getString("id");
             JSONArray authorsArray = volumeInfo.getJSONArray("authors");
-
-            if(authorsArray != null) {
-                authors = authorsArray.join(", ").replace("\"", "");
-            } else authors = "";
-
+            authors = authorsArray.join(", ").replace("\"", "");
             thumbnailURL = volumeInfo.getJSONObject("imageLinks").getString("smallThumbnail");
             description = volumeInfo.optString("description", "No description");
 

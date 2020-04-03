@@ -8,9 +8,8 @@ import com.leewilson.libra.model.Book
  */
 fun List<Book>.filterBy(searchTerm: String): List<Book> {
     val lowerCaseString = searchTerm.toLowerCase()
-    return this.filter {book ->
+    return this.filter { book ->
         book.title.toLowerCase().contains(Regex(lowerCaseString)) ||
-        book.description.toLowerCase().contains(Regex(lowerCaseString)) ||
         book.authors.toLowerCase().contains(Regex(lowerCaseString))
     }
 }

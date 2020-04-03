@@ -13,7 +13,6 @@ import java.util.concurrent.Executors;
 
 public class LocalRepository {
 
-    private AppDatabase mAppDatabase;
     private BookDao mDao;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
@@ -22,8 +21,8 @@ public class LocalRepository {
     public interface OnContainsItemListener { void onCheckedItem(boolean isStoredLocally); }
 
     public LocalRepository(Context context) {
-        mAppDatabase = AppDatabase.getInstance(context);
-        mDao = mAppDatabase.getBookDao();
+        AppDatabase appDatabase = AppDatabase.getInstance(context);
+        mDao = appDatabase.getBookDao();
     }
 
     public synchronized void fetchAllBooks(OnFetchAllItemsListener listener) {

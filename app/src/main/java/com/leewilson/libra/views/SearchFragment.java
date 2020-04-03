@@ -26,7 +26,6 @@ import com.leewilson.libra.viewmodels.SearchBooksViewModel;
 public class SearchFragment extends Fragment {
 
     private SearchBooksViewModel mViewModel;
-    private RecyclerView mRecyclerView;
     private TextInputEditText mSearchField;
     private ProgressBar mProgressBar;
 
@@ -40,17 +39,17 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = view.findViewById(R.id.search_recyclerview);
+        final RecyclerView recyclerView = view.findViewById(R.id.search_recyclerview);
         mSearchField = view.findViewById(R.id.books_search_bar);
         mProgressBar = view.findViewById(R.id.search_progress_bar);
 
-        ViewModelStoreOwner owner = Navigation.findNavController(getActivity(), R.id.nav_host_fragment)
+        ViewModelStoreOwner owner = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .getViewModelStoreOwner(R.id.search_nav_graph);
         mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
 
         BookSearchListAdapter adapter = new BookSearchListAdapter(view.getContext());
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         mViewModel.getSearchedBooksLiveData().observe(getViewLifecycleOwner(), books -> {
             adapter.updateCache(books);
