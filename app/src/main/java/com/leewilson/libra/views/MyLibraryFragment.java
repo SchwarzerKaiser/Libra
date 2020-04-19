@@ -38,7 +38,6 @@ public class MyLibraryFragment extends Fragment {
     private MyLibraryViewModel mViewModel;
     private List<Book> mBooks;
     private int mCurrentPage = 0;
-    private SearchView mSearchView;
 
     @Nullable
     @Override
@@ -48,7 +47,7 @@ public class MyLibraryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_mylibrary, container, false);
         mViewPager = view.findViewById(R.id.mylibrary_viewpager_container);
-        mSearchView = view.findViewById(R.id.searchView);
+        SearchView searchView = view.findViewById(R.id.searchView);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = view.findViewById(R.id.mylibrary_tabs);
@@ -85,7 +84,7 @@ public class MyLibraryFragment extends Fragment {
             }
         });
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -114,5 +113,10 @@ public class MyLibraryFragment extends Fragment {
     private void sendDataToCurrentTab(List<Book> books) {
         Tabbable tab = (Tabbable) mSectionsPageAdapter.getItem(mViewPager.getCurrentItem());
         tab.setData(books);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 }

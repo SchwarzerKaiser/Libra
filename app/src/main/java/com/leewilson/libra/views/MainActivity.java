@@ -1,14 +1,13 @@
 package com.leewilson.libra.views;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,61 +15,48 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.leewilson.libra.R;
 
-import static androidx.navigation.Navigation.findNavController;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity {
-
-    private DrawerLayout mDrawer;
-    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
     private NavigationView mNavView;
-    private ActionBarDrawerToggle mDrawerToggle;
+    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = findViewById(R.id.toolbar);
-        mDrawer = findViewById(R.id.drawer_layout);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mNavView = findViewById(R.id.nvView);
 
-        ActionBarDrawerToggle drawerToggle = getDrawerToggle();
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
-        mDrawer.addDrawerListener(drawerToggle);
+        initNavigation();
     }
 
-    private ActionBarDrawerToggle getDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, R.string.drawer_open, R.string.drawer_close);
+    private void initNavigation() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        mNavController = navHostFragment.getNavController();
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mDrawerLayout);
+        NavigationUI.setupWithNavController(mNavView, mNavController);
+        mNavView.setNavigationItemSelectedListener(this);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.mainMenuFragment, false)
+                .build();
+
         switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawer.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onNavDrawerItemSelected(MenuItem item) {
-
-        NavController controller = findNavController(this, R.id.nav_host_fragment);
-
-        switch(item.getItemId()) {
 
             case R.id.navdrawer_home:
-                NavOptions navOptions = new NavOptions.Builder()
-                        .setPopUpTo(R.id.mainMenuFragment, true)
-                        .build();
-                controller.navigate(R.id.mainMenuFragment, null, navOptions);
+                mNavController.navigate(R.id.mainMenuFragment, null, navOptions);
                 break;
 
             case R.id.navdrawer_search:
-                if(isValidDestination(R.id.search_nav_graph))
-                    controller.navigate(R.id.search_nav_graph);
+                if (isValidDestination(R.id.search_nav_graph))
+                    mNavController.navigate(R.id.search_nav_graph, null, navOptions);
                 break;
 
             case R.id.navdrawer_find_a_store:
@@ -79,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navdrawer_mylibrary:
                 if (isValidDestination(R.id.mylibrary_nav_graph))
-                    controller.navigate(R.id.mylibrary_nav_graph);
+                    mNavController.navigate(R.id.mylibrary_nav_graph, null, navOptions);
                 break;
 
             case R.id.navdrawer_scanbarcode:
                 if (isValidDestination(R.id.barcodeScannerFragment))
-                    controller.navigate(R.id.barcodeScannerFragment);
+                    mNavController.navigate(R.id.barcodeScannerFragment, null, navOptions);
                 break;
 
             case R.id.navdrawer_settings:
@@ -92,11 +78,18 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        mDrawer.closeDrawer(GravityCompat.START);
+        item.setChecked(true);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
     private boolean isValidDestination(int destination) {
-        return destination != Navigation.findNavController(this, R.id.nav_host_fragment)
-                .getCurrentDestination().getId();
+        return destination != mNavController.getCurrentDestination().getId();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(mNavController, mDrawerLayout);
     }
 }

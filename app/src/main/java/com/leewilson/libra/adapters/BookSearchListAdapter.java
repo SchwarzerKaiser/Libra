@@ -1,6 +1,7 @@
 package com.leewilson.libra.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import com.leewilson.libra.R;
@@ -25,6 +27,7 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
 
     private List<Book> mData = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
+    public static final String BOOK_INDEX_TAG = "BOOK_INDEX_TAG";
 
     public BookSearchListAdapter(Context context) {
         mLayoutInflater = LayoutInflater.from(context);
@@ -84,8 +87,9 @@ public class BookSearchListAdapter extends RecyclerView.Adapter<BookSearchListAd
 
         @Override
         public void onClick(View view) {
-            NavDirections action = SearchFragmentDirections.navActionToSearchedBookDetail().setIndex(listIndex);
-            Navigation.findNavController(itemView).navigate(action);
+            Bundle bundle = new Bundle();
+            bundle.putInt(BOOK_INDEX_TAG, listIndex);
+            Navigation.findNavController(itemView).navigate(R.id.searchedBookDetailFragment, bundle);
         }
     }
 }

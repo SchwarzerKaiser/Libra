@@ -66,4 +66,7 @@ dependencies {
 
     // Google Play Services
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
+
+    // Leak detection
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 }

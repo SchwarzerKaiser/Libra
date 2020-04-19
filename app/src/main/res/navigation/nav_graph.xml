@@ -3,80 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/mainMenuFragment">
+    app:startDestination="@+id/mainMenuFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/mainMenuFragment"
         android:name="com.leewilson.libra.views.MainMenuFragment"
-        android:label="main_menu_fragment_layout"
-        tools:layout="@layout/main_menu_fragment_layout">
-        <action
-            android:id="@+id/nav_action_toSearchScreen"
-            app:destination="@id/search_nav_graph" />
-        <action
-            android:id="@+id/nav_action_toBarcodeScanner"
-            app:destination="@id/barcodeScannerFragment" />
-        <action
-            android:id="@+id/action_mainMenuFragment_to_myLibraryFragment"
-            app:destination="@id/mylibrary_nav_graph" />
-    </fragment>
+        android:label="@string/app_name"
+        tools:layout="@layout/main_menu_fragment_layout" />
 
     <fragment
         android:id="@+id/barcodeScannerFragment"
         android:name="com.leewilson.libra.views.BarcodeScannerFragment"
-        android:label="fragment_barcode_scanner"
+        android:label="Scan book"
         tools:layout="@layout/fragment_barcode_scanner" >
         <action
             android:id="@+id/nav_action_toScannedBook"
             app:destination="@id/scannedBookFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/scannedBookFragment"
         android:name="com.leewilson.libra.views.ScannedBookFragment"
-        android:label="fragment_scanned_book"
-        tools:layout="@layout/fragment_scanned_book" >
+        android:label="Scanned book"
+        tools:layout="@layout/fragment_searched_book_detail" >
         <argument
             android:name="isbn"
             app:argType="string" />
     </fragment>
+
     <navigation
         android:id="@+id/search_nav_graph"
         app:startDestination="@id/searchFragment" >
+
         <fragment
             android:id="@+id/searchFragment"
             android:name="com.leewilson.libra.views.SearchFragment"
-            android:label="search_screen_fragment_layout"
+            android:label="Search books"
             tools:layout="@layout/search_screen_fragment_layout">
             <action
                 android:id="@+id/nav_action_toSearchedBookDetail"
                 app:destination="@+id/searchedBookDetailFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/searchedBookDetailFragment"
             android:name="com.leewilson.libra.views.SearchedBookDetailFragment"
-            android:label="fragment_searched_book_detail"
+            android:label="Book details"
             tools:layout="@layout/fragment_searched_book_detail">
             <argument
                 android:name="index"
                 android:defaultValue="-1"
                 app:argType="integer" />
         </fragment>
+
     </navigation>
+
     <navigation
         android:id="@+id/mylibrary_nav_graph"
         app:startDestination="@id/myLibraryFragment" >
+
         <fragment
             android:id="@+id/myLibraryFragment"
             android:name="com.leewilson.libra.views.MyLibraryFragment"
-            android:label="MyLibraryFragment">
+            android:label="MyLibrary">
             <action
                 android:id="@+id/action_myLibraryFragment_to_myLibraryDetailFragment"
                 app:destination="@id/myLibraryDetailFragment" />
         </fragment>
+
         <fragment
             android:id="@+id/myLibraryDetailFragment"
             android:name="com.leewilson.libra.views.MyLibraryDetailFragment"
-            android:label="MyLibraryDetailFragment" />
+            android:label="Details" />
+
     </navigation>
 
 </navigation>

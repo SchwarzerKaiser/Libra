@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.leewilson.libra.R;
+import com.leewilson.libra.adapters.BookSearchListAdapter;
 import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.SearchBooksViewModel;
 import com.squareup.picasso.Picasso;
@@ -45,8 +46,7 @@ public class SearchedBookDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searched_book_detail, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_searched_book_detail, container, false);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SearchedBookDetailFragment extends Fragment {
                 mViewModel.checkIsStoredLocally(book);
             }
         });
-        int index = SearchedBookDetailFragmentArgs.fromBundle(getArguments()).getIndex();
+        int index = getArguments().getInt(BookSearchListAdapter.BOOK_INDEX_TAG);
         mViewModel.setBookDetailIndex(index);
 
         mViewModel.getIsStoredLocallyLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {

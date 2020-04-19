@@ -30,18 +30,15 @@ public class MainMenuFragment extends Fragment {
         CardView myLibrary = thisView.findViewById(R.id.menu_mylibrary_cardview);
 
         searchBooks.setOnClickListener(view -> {
-            NavDirections action = MainMenuFragmentDirections.navActionToSearchScreen();
-            Navigation.findNavController(thisView).navigate(action);
+            Navigation.findNavController(thisView).navigate(R.id.search_nav_graph);
         });
 
         barcodeScan.setOnClickListener(view -> {
-            NavDirections action = MainMenuFragmentDirections.navActionToBarcodeScanner();
-            Navigation.findNavController(thisView).navigate(action);
+            Navigation.findNavController(thisView).navigate(R.id.barcodeScannerFragment);
         });
 
         myLibrary.setOnClickListener(view -> {
-            NavDirections action = MainMenuFragmentDirections.actionMainMenuFragmentToMyLibraryFragment();
-            Navigation.findNavController(thisView).navigate(action);
+            Navigation.findNavController(thisView).navigate(R.id.mylibrary_nav_graph);
         });
     }
 }
