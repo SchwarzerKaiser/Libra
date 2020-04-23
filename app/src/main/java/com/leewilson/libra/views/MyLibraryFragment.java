@@ -35,7 +35,6 @@ public class MyLibraryFragment extends Fragment {
     private static final String TAG = "MyLibraryFragment";
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
-    private MyLibraryViewModel mViewModel;
     private List<Book> mBooks;
     private int mCurrentPage = 0;
 
@@ -45,7 +44,13 @@ public class MyLibraryFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_mylibrary, container, false);
+        return inflater.inflate(R.layout.fragment_mylibrary, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         mViewPager = view.findViewById(R.id.mylibrary_viewpager_container);
         SearchView searchView = view.findViewById(R.id.searchView);
         setupViewPager(mViewPager);
@@ -55,13 +60,13 @@ public class MyLibraryFragment extends Fragment {
 
         ViewModelStoreOwner owner = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
                 .getViewModelStoreOwner(R.id.mylibrary_nav_graph);
-        mViewModel = new ViewModelProvider(owner).get(MyLibraryViewModel.class);
-        mViewModel.getAllBooksLiveData().observe(getViewLifecycleOwner(), books -> {
+        MyLibraryViewModel viewModel = new ViewModelProvider(owner).get(MyLibraryViewModel.class);
+        viewModel.getAllBooksLiveData().observe(getViewLifecycleOwner(), books -> {
             mBooks = books;
             Tabbable tabbable = (Tabbable) mSectionsPageAdapter.getItem(mViewPager.getCurrentItem());
             tabbable.setData(mBooks);
         });
-        mViewModel.updateBookList();
+        viewModel.updateBookList();
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -97,12 +102,10 @@ public class MyLibraryFragment extends Fragment {
                 return false;
             }
         });
-
-        return view;
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        mSectionsPageAdapter = new SectionsPageAdapter(getActivity().getSupportFragmentManager(),
+        mSectionsPageAdapter = new SectionsPageAdapter(getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mSectionsPageAdapter.addFragment(new MyLibraryListTabFragment(), getString(R.string.mylibrary_tab_all));
         mSectionsPageAdapter.addFragment(new MyLibraryRatedTabFragment(), getString(R.string.mylibrary_tab_rated));
@@ -113,10 +116,5 @@ public class MyLibraryFragment extends Fragment {
     private void sendDataToCurrentTab(List<Book> books) {
         Tabbable tab = (Tabbable) mSectionsPageAdapter.getItem(mViewPager.getCurrentItem());
         tab.setData(books);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }

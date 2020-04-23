@@ -31,13 +31,12 @@ public class MyLibraryListTabFragment extends Fragment implements Tabbable {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
-        View view = inflater.inflate(R.layout.fragment_mylibrary_tab_all, container, false);
-        init(view);
-        return view;
+        return inflater.inflate(R.layout.fragment_mylibrary_tab_all, container, false);
     }
 
-    private void init(View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         RecyclerView recyclerView = view.findViewById(R.id.mylibrary_all_recyclerview);
         mAdapter = new MyLibraryAdapter(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
