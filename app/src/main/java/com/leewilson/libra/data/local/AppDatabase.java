@@ -7,8 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.leewilson.libra.model.Book;
+import com.leewilson.libra.model.Review;
 
-@Database(entities = {Book.class}, version = 1, exportSchema = false)
+@Database(entities = {Book.class, Review.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase mInstance;
@@ -27,4 +28,6 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract BookDao getBookDao();
+
+    public abstract ReviewDao getReviewDao();
 }

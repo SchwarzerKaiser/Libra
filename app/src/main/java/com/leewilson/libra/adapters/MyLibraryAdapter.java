@@ -22,9 +22,11 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
 
     private List<Book> mData = new ArrayList<>();
     private LayoutInflater mInflater;
+    private Interaction mInteraction;
 
-    public MyLibraryAdapter(Context context) {
+    public MyLibraryAdapter(Context context, Interaction interaction) {
         mInflater = LayoutInflater.from(context);
+        mInteraction = interaction;
     }
 
     public void updateCache(List<Book> books) {
@@ -36,7 +38,7 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.mylibrary_book_item, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView, mInteraction);
     }
 
     @Override
@@ -44,6 +46,7 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
         Book thisBook = mData.get(position);
         holder.title.setText(thisBook.getTitle());
         holder.authors.setText(thisBook.getAuthors());
+        holder.id = thisBook.getId();
         String thumbnailUrl = thisBook.getThumbnailURL();
         holder.cover.setImageDrawable(null);
         if(!TextUtils.isEmpty(thumbnailUrl)) {
@@ -64,14 +67,27 @@ public class MyLibraryAdapter extends RecyclerView.Adapter<MyLibraryAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView cover;
-        final TextView title;
-        final TextView authors;
+        TextView title;
+        TextView authors;
+        int id;
+        Interaction interaction;
 
-        ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView, Interaction interaction) {
             super(itemView);
             cover = itemView.findViewById(R.id.mylibrary_all_item_image);
             title = itemView.findViewById(R.id.mylibrary_all_item_title);
             authors = itemView.findViewById(R.id.mylibrary_all_item_authors);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    interaction.onClick(id);
+                }
+            });
         }
+    }
+
+    public interface Interaction {
+        void onClick(int id);
     }
 }

@@ -18,8 +18,8 @@ public interface BookDao {
     @Query("SELECT * FROM books ORDER BY title DESC")
     List<Book> getAllBooks();
 
-    @Query("SELECT * FROM books WHERE apiId = :apiId LIMIT 1")
-    Book findBookByApiId(String apiId);
+    @Query("SELECT * FROM books WHERE id = :id LIMIT 1")
+    Book findBookById(int id);
 
     @Query("SELECT COUNT(*) FROM books WHERE apiId = :apiId")
     int getCountItemsByApiId(String apiId);

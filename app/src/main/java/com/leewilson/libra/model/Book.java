@@ -13,7 +13,6 @@ public class Book {
 
     // Locally defined
     @PrimaryKey(autoGenerate = true) private int id;
-    private int rating;
 
     // API-defined
     private String apiId;
@@ -55,14 +54,6 @@ public class Book {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public String getApiId() {

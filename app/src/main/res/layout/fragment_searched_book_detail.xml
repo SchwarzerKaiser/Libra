@@ -28,14 +28,6 @@
                 android:src="@drawable/toolbar_book_detail_placeholder"
                 app:layout_collapseMode="parallax" />
 
-            <!--<androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:backgroundTint="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
