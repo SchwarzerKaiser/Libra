@@ -1,6 +1,8 @@
 package com.leewilson.libra.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "reviews")
@@ -59,5 +61,12 @@ public class Review {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    @Ignore
+    @NonNull
+    @Override
+    public String toString() {
+        return "Review(id="+id+", bookId="+bookId+", review="+review+", rating="+rating+", timestamp="+timeStamp;
     }
 }

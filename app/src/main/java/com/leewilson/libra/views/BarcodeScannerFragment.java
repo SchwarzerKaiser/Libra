@@ -5,12 +5,21 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageAnalysis;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -24,27 +33,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.MultiProcessor;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.leewilson.libra.R;
-import com.leewilson.libra.views.barcodescanner.BarcodeGraphicTracker;
-import com.leewilson.libra.views.barcodescanner.BarcodeTrackerFactory;
-import com.leewilson.libra.views.barcodescanner.CameraSourcePreview;
+import com.leewilson.libra.utils.BarcodeAnalyzer;
+import com.leewilson.libra.utils.BarcodeAnalyzer.OnBarcodeDetectedListener;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
-public class BarcodeScannerFragment extends Fragment implements BarcodeGraphicTracker.BarcodeUpdateListener {
+public class BarcodeScannerFragment extends Fragment {
 
     private static final String TAG = "BarcodeScannerFragment";
-    private static final int RC_HANDLE_CAMERA_PERM = 1;
-    private CameraSourcePreview mPreview;
-    private CameraSource mCameraSource;
 
-    public BarcodeScannerFragment() { }
+    private static final int REQUEST_CODE_PERMISSIONS = 10;
+    private static final String[] PERMISSIONS = {Manifest.permission.CAMERA};
+
+    private Preview mPreview;
+    private PreviewView mViewFinder;
+    private View mWindowTop, mWindowBottom;
+    private Camera mCamera;
+    private Executor mCameraExecutor = Executors.newSingleThreadExecutor();
+    private BarcodeAnalyzer mAnalyzer;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,124 +69,109 @@ public class BarcodeScannerFragment extends Fragment implements BarcodeGraphicTr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        int rc = ActivityCompat.checkSelfPermission(view.getContext(), Manifest.permission.CAMERA);
-        if (rc == PackageManager.PERMISSION_GRANTED) {
-            mPreview = view.findViewById(R.id.camera_source_preview);
-            createCameraSource(true, false);
-            startCameraSource();
+        mViewFinder = view.findViewById(R.id.view_finder);
+        mWindowTop = view.findViewById(R.id.scanner_window_top);
+        mWindowBottom = view.findViewById(R.id.scanner_window_bottom);
+
+        // Request camera permissions:
+        if (allPermissionsGranted()) {
+            startCamera();
         } else {
-            requestCameraPermission();
+            requestPermissions(PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
     }
 
-    private void requestCameraPermission() {
-        Log.w(TAG, "Camera permission is not granted. Requesting permission");
+    private void startCamera() {
+        ListenableFuture cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext());
+        cameraProviderFuture.addListener(() -> {
+            try {
+                ProcessCameraProvider provider = (ProcessCameraProvider) cameraProviderFuture.get();
+                mPreview = new Preview.Builder().build();
 
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+                ImageAnalysis imgAnalysis = createImageAnalysis();
+                imgAnalysis.setAnalyzer(mCameraExecutor, new BarcodeAnalyzer(new OnBarcodeDetectedListener() {
+                    @Override
+                    public void onBarcodeDetected(List<FirebaseVisionBarcode> barcodes) {
+                        handleBarcodes(barcodes);
+                    }
+                }));
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, RC_HANDLE_CAMERA_PERM);
-            return;
-        }
+                CameraSelector cameraSelector = new CameraSelector.Builder()
+                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                        .build();
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ActivityCompat.requestPermissions(getActivity(), permissions, RC_HANDLE_CAMERA_PERM);
+                provider.unbindAll();
+                mCamera = provider.bindToLifecycle(getViewLifecycleOwner(), cameraSelector, imgAnalysis, mPreview);
+
+                if(mPreview != null) {
+                    mPreview.setSurfaceProvider(
+                            mViewFinder.createSurfaceProvider(
+                                    mCamera.getCameraInfo()
+                            )
+                    );
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                Log.e(TAG, "Use case binding failed.", e);
             }
-        };
+        }, ContextCompat.getMainExecutor(requireContext()));
     }
 
-    /**
-     * Creates and starts the camera.  Note that this uses a higher resolution in comparison
-     * to other detection examples to enable the barcode detector to detect small barcodes
-     * at long distances.
-     *
-     * Suppressing InlinedApi since there is a check that the minimum version is met before using
-     * the constant.
-     */
-    @SuppressLint("InlinedApi")
-    private void createCameraSource(boolean autoFocus, boolean useFlash) {
-        Context context = getContext();
+    private void handleBarcodes(List<FirebaseVisionBarcode> barcodes) {
+        FirebaseVisionBarcode barcode = barcodes.get(0);
 
-        // A barcode detector is created to track barcodes.  An associated multi-processor instance
-        // is set to receive the barcode detection results, track the barcodes, and maintain
-        // graphics for each barcode on screen.  The factory is used by the multi-processor to
-        // create a separate tracker instance for each barcode.
-        BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context)
+        // Check if inside window, return if it isn't
+        Rect barcodeBox = barcode.getBoundingBox();
+        if (barcodeBox == null) return;
+        if (isViewContains(mWindowTop, barcodeBox.centerX(), barcodeBox.centerY())) return;
+        if (isViewContains(mWindowBottom, barcodeBox.centerX(), barcodeBox.centerY())) return;
+
+        String isbn = barcode.getRawValue();
+        Log.d(TAG, "handleBarcodes: ISBN: " + isbn);
+
+        Vibrator v = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+        NavDirections action = BarcodeScannerFragmentDirections.navActionToScannedBook(isbn);
+        Navigation.findNavController(requireView()).navigate(action);
+    }
+
+    private ImageAnalysis createImageAnalysis() {
+        return new ImageAnalysis.Builder()
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build();
-
-        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(this);
-        barcodeDetector.setProcessor(new MultiProcessor.Builder<>(barcodeFactory).build());
-
-        if (!barcodeDetector.isOperational()) {
-            Log.w(TAG, "Detector dependencies are not yet available.");
-        }
-
-        CameraSource.Builder builder = new CameraSource.Builder(context, barcodeDetector)
-                .setAutoFocusEnabled(autoFocus)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1600, 1024)
-                .setRequestedFps(15.0f);
-
-        mCameraSource = builder.build();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (requestCode != RC_HANDLE_CAMERA_PERM) {
-            Log.d(TAG, "Got unexpected permission result: " + requestCode);
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            return;
-        }
-
-        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "Camera permission granted - initialize the camera source");
-            // we have permission, so create the camerasource
-            createCameraSource(true, false);
-            return;
-        }
-
-        Log.e(TAG, "Permission not granted: results len = " + grantResults.length +
-                " Result code = " + (grantResults.length > 0 ? grantResults[0] : "(empty)"));
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Multitracker sample")
-                .setMessage("No camera permission!")
-                .show();
-    }
-
-    /**
-     * Starts or restarts the camera source, if it exists.  If the camera source doesn't exist yet
-     * (e.g., because onResume was called before the camera source was created), this will be called
-     * again when the camera source is created.
-     */
-    private void startCameraSource() throws SecurityException {
-        // check that the device has play services available.
-        int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                getContext());
-        if (code != ConnectionResult.SUCCESS) {
-            Toast.makeText(getView().getContext(), "Error!", Toast.LENGTH_SHORT).show();
-        }
-
-        if (mCameraSource != null) {
-            try {
-                mPreview.start(mCameraSource);
-            } catch (IOException e) {
-                Log.e(TAG, "Unable to start camera source.", e);
-                mCameraSource.release();
-                mCameraSource = null;
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                startCamera();
+            } else {
+                Toast.makeText(requireActivity(), "Camera permission required.", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(requireView()).popBackStack();
             }
         }
     }
 
-    @Override
-    public void onBarcodeDetected(Barcode barcode) {
-        Log.d(TAG, barcode.rawValue);
-        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
-        NavDirections action = BarcodeScannerFragmentDirections.navActionToScannedBook(barcode.rawValue);
-        Navigation.findNavController(getView()).navigate(action);
+    private boolean allPermissionsGranted() {
+        for (String perm: PERMISSIONS) {
+            int status = ContextCompat.checkSelfPermission(requireContext(), perm);
+            if(status != PackageManager.PERMISSION_GRANTED)
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isViewContains(View view, int rx, int ry) {
+        int[] l = new int[2];
+        view.getLocationOnScreen(l);
+        int x = l[0];
+        int y = l[1];
+        int w = view.getWidth();
+        int h = view.getHeight();
+
+        if (rx < x || rx > x + w || ry < y || ry > y + h) {
+            return false;
+        }
+        return true;
     }
 }
