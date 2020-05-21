@@ -29,8 +29,6 @@ public class ScannedBookFragment extends Fragment {
     private TextView mAuthors;
     private ImageView mCoverImage;
 
-    public ScannedBookFragment() { /*Required empty public constructor */ }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,10 +40,7 @@ public class ScannedBookFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mTitle = view.findViewById(R.id.book_detail_title);
-        mDescription = view.findViewById(R.id.book_detail_description);
-        mAuthors = view.findViewById(R.id.book_detail_authors);
-        mCoverImage = view.findViewById(R.id.toolbarBookImage);
+        initViews(view);
 
         String isbn = getArguments().getString("isbn");
         SearchBooksViewModel viewModel = new ViewModelProvider(requireActivity()).get(SearchBooksViewModel.class);
@@ -56,25 +51,19 @@ public class ScannedBookFragment extends Fragment {
         viewModel.setScannedBook(isbn);
     }
 
+    private void initViews(View view) {
+        mTitle = view.findViewById(R.id.book_detail_title);
+        mDescription = view.findViewById(R.id.book_detail_description);
+        mAuthors = view.findViewById(R.id.book_detail_authors);
+        mCoverImage = view.findViewById(R.id.toolbarBookImage);
+    }
+
     private void updateViews() {
-
-        if (mBook == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setMessage(getResources().getString(R.string.scan_book_not_found_message))
-                    .setTitle(getResources().getString(R.string.scan_book_not_found_title))
-                    .setNeutralButton("OK", (dialogInterface, i) -> {
-                        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                        controller.popBackStack(R.id.mainMenuFragment, false);
-                        dialogInterface.cancel();
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-            return;
+        if (mBook != null) {
+            Picasso.get().load(mBook.getThumbnailURL()).into(mCoverImage);
+            mTitle.setText(mBook.getTitle());
+            mDescription.setText(mBook.getDescription());
+            mAuthors.setText(mBook.getAuthors());
         }
-
-        Picasso.get().load(mBook.getThumbnailURL()).into(mCoverImage);
-        mTitle.setText(mBook.getTitle());
-        mDescription.setText(mBook.getDescription());
-        mAuthors.setText(mBook.getAuthors());
     }
 }

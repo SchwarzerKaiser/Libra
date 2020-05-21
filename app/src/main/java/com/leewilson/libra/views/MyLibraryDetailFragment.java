@@ -2,6 +2,7 @@ package com.leewilson.libra.views;
 
 import android.media.Rating;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 public class MyLibraryDetailFragment extends Fragment {
 
+    private static final String TAG = "MyLibraryDetailFragment";
+
     private MyLibraryViewModel mViewModel;
 
     private ImageView mImageView;
@@ -37,11 +40,8 @@ public class MyLibraryDetailFragment extends Fragment {
     private Button mShareButton;
     private EditText mReviewDisplay;
 
-    private float initialRating;
-    private String initialReview = "";
-    private boolean hasReview = true;
-    private boolean ratingChanged = false;
     private Review thisReview;
+    private boolean ratingChanged = false;
 
     @Nullable
     @Override
@@ -52,6 +52,7 @@ public class MyLibraryDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated called.");
 
         initViews(view);
         setupViewModel();
@@ -92,14 +93,12 @@ public class MyLibraryDetailFragment extends Fragment {
         mViewModel.getSelectedBook().observe(getViewLifecycleOwner(), this::updateBookInfo);
 
         mViewModel.getSelectedReview().observe(getViewLifecycleOwner(), review -> {
-            if (review != null) {
-                initialRating = review.getRating();
-                initialReview = review.getReview();
-                thisReview = review;
-                updateReviewInfo(review);
+            if (review == null) {
+                // No review. Do nothing.
             } else {
-                // If null, then there is no review yet
-                hasReview = false;
+                // Review exists already. Initialise 'thisReview'
+                thisReview = review;
+                updateReviewInfo(thisReview);
             }
         });
     }
@@ -119,48 +118,44 @@ public class MyLibraryDetailFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
+        Log.d(TAG, "onDestroyView called.");
 
-        float rating = mRatingBar.getRating();
-        String reviewString = mReviewDisplay.getText().toString();
-
-
-        if(!hasReview) {
-
-            // New review, review field modified
-            if (!ratingChanged && !reviewIsBlank()) {
-                mViewModel.saveReview(
-                        new Review(
-                                0,
-                                mViewModel.getSelectedBook().getValue().getId(),
-                                reviewString,
-                                rating,
-                                System.currentTimeMillis()
-                        )
+        if (thisReview == null) {
+            // New review, check for any changes
+            if (!reviewIsBlank() || ratingChanged) {
+                Review newReview = new Review(
+                        0,
+                        mViewModel.getSelectedBook().getValue().getId(),
+                        mReviewDisplay.getText().toString(),
+                        mRatingBar.getRating(),
+                        System.currentTimeMillis()
                 );
+                mViewModel.saveReview(newReview);
             }
 
-            // New review, review left blank, rating modified
-            if (ratingChanged && reviewIsBlank()) {
-                mViewModel.saveReview(
-                        new Review(
-                                0,
-                                mViewModel.getSelectedBook().getValue().getId(),
-                                "",
-                                rating,
-                                System.currentTimeMillis()
-                        )
-                );
-            }
         } else {
-            // Review already exists:
-            if (rating != initialRating || !reviewString.equals(initialReview)) {
+            // Existing review, check if changed.
+            String displayedReview = mReviewDisplay.getText().toString();
+            if (!displayedReview.equals(thisReview.getReview()) || ratingChanged) {
+                thisReview.setReview(displayedReview);
                 thisReview.setRating(mRatingBar.getRating());
-                thisReview.setReview(reviewString);
-                thisReview.setTimeStamp(System.currentTimeMillis());
                 mViewModel.updateReview(thisReview);
             }
         }
+
+        nullify();
+        super.onDestroyView();
+    }
+
+    private void nullify() {
+        thisReview = null;
+        mImageView = null;
+        mRatingBar = null;
+        mTitle = null;
+        mDescription = null;
+        mAuthors = null;
+        mShareButton = null;
+        mReviewDisplay = null;
     }
 
     private boolean reviewIsBlank() {

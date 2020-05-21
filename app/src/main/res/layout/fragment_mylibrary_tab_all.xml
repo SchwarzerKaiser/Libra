@@ -7,6 +7,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mylibrary_all_recyclerview"
         tools:listitem="@layout/mylibrary_book_item"
+        android:background="@color/cardview_shadow_start_color"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
