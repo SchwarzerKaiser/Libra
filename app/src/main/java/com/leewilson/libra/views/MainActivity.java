@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.navdrawer_scanbarcode:
-                if (isValidDestination(R.id.barcodeScannerFragment))
-                    mNavController.navigate(R.id.barcodeScannerFragment, null, navOptions);
+                if (isValidDestination(R.id.barcode_scanner_graph))
+                    mNavController.navigate(R.id.barcode_scanner_graph, null, navOptions);
                 break;
 
             case R.id.navdrawer_settings:

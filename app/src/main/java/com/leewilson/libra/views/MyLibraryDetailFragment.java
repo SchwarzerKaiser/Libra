@@ -55,6 +55,10 @@ public class MyLibraryDetailFragment extends Fragment {
         Log.d(TAG, "onViewCreated called.");
 
         initViews(view);
+
+        mRatingBar.setNumStars(0);
+        mReviewDisplay.setText("");
+
         setupViewModel();
         subscribeObservers();
         setRatingBarListener();

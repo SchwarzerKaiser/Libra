@@ -32,10 +32,8 @@ import com.squareup.picasso.Picasso;
 
 public class SearchedBookDetailFragment extends Fragment {
 
-    // Model
     private SearchBooksViewModel mViewModel;
 
-    // UI elements
     private ImageView mBookToolbarImage;
     private TextView mDescription;
     private TextView mTitle;
@@ -53,37 +51,12 @@ public class SearchedBookDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBookToolbarImage = view.findViewById(R.id.toolbarBookImage);
-        mDescription = view.findViewById(R.id.book_detail_description);
-        mTitle = view.findViewById(R.id.book_detail_title);
-        mAuthors = view.findViewById(R.id.book_detail_authors);
-        mFab = view.findViewById(R.id.add_book_to_library_fab);
+        initViews(view);
+        initViewModel();
+        subscribeObservers();
 
-        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        ViewModelStoreOwner owner = controller.getViewModelStoreOwner(R.id.search_nav_graph);
-        mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
-        mViewModel.getSearchedBookLiveData().observe(getViewLifecycleOwner(), new Observer<Book>() {
-            @Override
-            public void onChanged(Book book) {
-                Picasso.get().load(book.getThumbnailURL()).into(mBookToolbarImage);
-                mBook = book;
-                mTitle.setText(book.getTitle());
-                mDescription.setText(book.getDescription());
-                mAuthors.setText(book.getAuthors());
-                mViewModel.checkIsStoredLocally(book);
-            }
-        });
         int index = getArguments().getInt(BookSearchListAdapter.BOOK_INDEX_TAG);
         mViewModel.setBookDetailIndex(index);
-
-        mViewModel.getIsStoredLocallyLiveData().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isStoredLocally) {
-                if (isStoredLocally) {
-                    changeFabToStoredLocally();
-                }
-            }
-        });
 
         mFab.setOnClickListener(v -> {
             if (mBook != null) {
@@ -92,9 +65,37 @@ public class SearchedBookDetailFragment extends Fragment {
                 Toast.makeText(getContext(), "Added to MyLibrary", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // TODO: Add social features
-        // TODO: Amazon purchase link?
+    private void initViews(View view) {
+        mBookToolbarImage = view.findViewById(R.id.toolbarBookImage);
+        mDescription = view.findViewById(R.id.book_detail_description);
+        mTitle = view.findViewById(R.id.book_detail_title);
+        mAuthors = view.findViewById(R.id.book_detail_authors);
+        mFab = view.findViewById(R.id.add_book_to_library_fab);
+    }
+
+    private void initViewModel() {
+        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        ViewModelStoreOwner owner = controller.getViewModelStoreOwner(R.id.search_nav_graph);
+        mViewModel = new ViewModelProvider(owner).get(SearchBooksViewModel.class);
+    }
+
+    private void subscribeObservers() {
+        mViewModel.getSearchedBookLiveData().observe(getViewLifecycleOwner(), book -> {
+            Picasso.get().load(book.getThumbnailURL()).into(mBookToolbarImage);
+            mBook = book;
+            mTitle.setText(book.getTitle());
+            mDescription.setText(book.getDescription());
+            mAuthors.setText(book.getAuthors());
+            mViewModel.checkIsStoredLocally(book);
+        });
+
+        mViewModel.getIsStoredLocallyLiveData().observe(getViewLifecycleOwner(), isStoredLocally -> {
+            if (isStoredLocally) {
+                changeFabToStoredLocally();
+            }
+        });
     }
 
     private void changeFabToStoredLocally() {

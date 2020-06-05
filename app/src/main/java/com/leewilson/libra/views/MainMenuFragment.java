@@ -34,7 +34,7 @@ public class MainMenuFragment extends Fragment {
         });
 
         barcodeScan.setOnClickListener(view -> {
-            Navigation.findNavController(thisView).navigate(R.id.barcodeScannerFragment);
+            Navigation.findNavController(thisView).navigate(R.id.barcode_scanner_graph);
         });
 
         myLibrary.setOnClickListener(view -> {

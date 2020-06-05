@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -54,11 +55,9 @@ public class BarcodeScannerFragment extends Fragment {
 
     private Preview mPreview;
     private PreviewView mViewFinder;
-    private View mWindowTop, mWindowBottom;
     private Camera mCamera;
     private Executor mCameraExecutor = Executors.newSingleThreadExecutor();
-    private BarcodeAnalyzer mAnalyzer;
-
+    private View mRootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,10 +67,8 @@ public class BarcodeScannerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mViewFinder = view.findViewById(R.id.view_finder);
-        mWindowTop = view.findViewById(R.id.scanner_window_top);
-        mWindowBottom = view.findViewById(R.id.scanner_window_bottom);
+        mRootView = view;
+        initViews(view);
 
         // Request camera permissions:
         if (allPermissionsGranted()) {
@@ -79,6 +76,10 @@ public class BarcodeScannerFragment extends Fragment {
         } else {
             requestPermissions(PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
+    }
+
+    private void initViews(View view) {
+        mViewFinder = view.findViewById(R.id.view_finder);
     }
 
     private void startCamera() {
@@ -103,7 +104,7 @@ public class BarcodeScannerFragment extends Fragment {
                 provider.unbindAll();
                 mCamera = provider.bindToLifecycle(getViewLifecycleOwner(), cameraSelector, imgAnalysis, mPreview);
 
-                if(mPreview != null) {
+                if (mPreview != null) {
                     mPreview.setSurfaceProvider(
                             mViewFinder.createSurfaceProvider(
                                     mCamera.getCameraInfo()
@@ -119,15 +120,19 @@ public class BarcodeScannerFragment extends Fragment {
     private void handleBarcodes(List<FirebaseVisionBarcode> barcodes) {
         FirebaseVisionBarcode barcode = barcodes.get(0);
 
+        View windowTop = mRootView.findViewById(R.id.scanner_window_top);
+        View windowBottom = mRootView.findViewById(R.id.scanner_window_bottom);
+
         // Check if inside window, return if it isn't
         Rect barcodeBox = barcode.getBoundingBox();
         if (barcodeBox == null) return;
-        if (isViewContains(mWindowTop, barcodeBox.centerX(), barcodeBox.centerY())) return;
-        if (isViewContains(mWindowBottom, barcodeBox.centerX(), barcodeBox.centerY())) return;
+        if (isViewContains(windowTop, barcodeBox.centerX(), barcodeBox.centerY())) return;
+        if (isViewContains(windowBottom, barcodeBox.centerX(), barcodeBox.centerY())) return;
 
         String isbn = barcode.getRawValue();
         Log.d(TAG, "handleBarcodes: ISBN: " + isbn);
 
+        // Navigate to detail view
         Vibrator v = (Vibrator) requireContext().getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
         NavDirections action = BarcodeScannerFragmentDirections.navActionToScannedBook(isbn);
@@ -153,14 +158,17 @@ public class BarcodeScannerFragment extends Fragment {
     }
 
     private boolean allPermissionsGranted() {
-        for (String perm: PERMISSIONS) {
+        for (String perm : PERMISSIONS) {
             int status = ContextCompat.checkSelfPermission(requireContext(), perm);
-            if(status != PackageManager.PERMISSION_GRANTED)
+            if (status != PackageManager.PERMISSION_GRANTED)
                 return false;
         }
         return true;
     }
 
+    /**
+     * Checks whether the given view is contained within the specified rectangle coordinates.
+     */
     private boolean isViewContains(View view, int rx, int ry) {
         int[] l = new int[2];
         view.getLocationOnScreen(l);

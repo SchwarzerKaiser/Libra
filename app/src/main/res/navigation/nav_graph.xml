@@ -12,25 +12,31 @@
         android:label="@string/app_name"
         tools:layout="@layout/main_menu_fragment_layout" />
 
-    <fragment
-        android:id="@+id/barcodeScannerFragment"
-        android:name="com.leewilson.libra.views.BarcodeScannerFragment"
-        android:label="Scan book"
-        tools:layout="@layout/fragment_barcode_scanner" >
-        <action
-            android:id="@+id/nav_action_toScannedBook"
-            app:destination="@id/scannedBookFragment" />
-    </fragment>
+    <navigation
+        android:id="@+id/barcode_scanner_graph"
+        app:startDestination="@id/barcodeScannerFragment">
 
-    <fragment
-        android:id="@+id/scannedBookFragment"
-        android:name="com.leewilson.libra.views.ScannedBookFragment"
-        android:label="Scanned book"
-        tools:layout="@layout/fragment_searched_book_detail" >
-        <argument
-            android:name="isbn"
-            app:argType="string" />
-    </fragment>
+        <fragment
+            android:id="@+id/barcodeScannerFragment"
+            android:name="com.leewilson.libra.views.BarcodeScannerFragment"
+            android:label="Scan book"
+            tools:layout="@layout/fragment_barcode_scanner" >
+            <action
+                android:id="@+id/nav_action_toScannedBook"
+                app:destination="@id/scannedBookFragment" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/scannedBookFragment"
+            android:name="com.leewilson.libra.views.ScannedBookFragment"
+            android:label="Scanned book"
+            tools:layout="@layout/fragment_searched_book_detail" >
+            <argument
+                android:name="isbn"
+                app:argType="string" />
+        </fragment>
+
+    </navigation>
 
     <navigation
         android:id="@+id/search_nav_graph"

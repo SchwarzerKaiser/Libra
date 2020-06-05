@@ -1,55 +1,41 @@
 package com.leewilson.libra.viewmodels;
 
 import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.leewilson.libra.data.LocalRepository;
 import com.leewilson.libra.data.SearchRepository;
 import com.leewilson.libra.model.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SearchBooksViewModel extends AndroidViewModel implements SearchRepository.GoogleBooksApiListener {
+public class ScannerViewModel extends AndroidViewModel implements SearchRepository.GoogleBooksApiListener {
 
     private SearchRepository mSearchRepository;
     private LocalRepository mLocalRepository;
-    private MutableLiveData<List<Book>> mSearchBooks = new MutableLiveData<>();
-    private MutableLiveData<Book> mSearchListBook = new MutableLiveData<>();
+
+    private MutableLiveData<Book> mScannedBook = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsStoredLocally = new MutableLiveData<>();
 
-    public SearchBooksViewModel(@NonNull Application application) {
+    public ScannerViewModel(@NonNull Application application) {
         super(application);
         mSearchRepository = new SearchRepository(application.getApplicationContext(), this);
         mLocalRepository = new LocalRepository(application.getApplicationContext());
     }
 
-    public LiveData<List<Book>> getSearchedBooksLiveData(){
-        if(mSearchBooks.getValue() == null || mSearchBooks.getValue().isEmpty()) {
-            mSearchBooks.setValue(new ArrayList<Book>());
-            return mSearchBooks;
-        } else {
-            return mSearchBooks;
-        }
-    }
-
-    public LiveData<Book> getSearchedBookLiveData() {
-        return mSearchListBook;
+    public LiveData<Book> getScannedBookLiveData() {
+        return mScannedBook;
     }
 
     public LiveData<Boolean> getIsStoredLocallyLiveData() { return mIsStoredLocally; }
 
-    public void setBookDetailIndex(int index) {
-        if (mSearchBooks.getValue() != null) {
-            mSearchListBook.setValue(mSearchBooks.getValue().get(index));
-        } else throw new IllegalArgumentException("Book list is empty");
-    }
-
-    public void updateSearchQuery(String query) {
-        mSearchRepository.updateBooks(query);
+    public void setScannedBook(String isbn) {
+        mSearchRepository.fetchScannedBook(isbn);
     }
 
     public void addToMyLibrary(Book book) {
@@ -62,12 +48,12 @@ public class SearchBooksViewModel extends AndroidViewModel implements SearchRepo
 
     @Override
     public void onReceiveBookSearchList(List<Book> books) {
-        mSearchBooks.setValue(books);
+        // Not used here.
     }
 
     @Override
     public void onReceiveBookByISBN(Book book) {
-        // Not used here
+        mScannedBook.setValue(book);
     }
 
     @Override

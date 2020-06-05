@@ -31,14 +31,11 @@ public class BarcodeAnalyzer implements ImageAnalysis.Analyzer {
 
     public BarcodeAnalyzer(OnBarcodeDetectedListener listener) {
         mListener = listener;
-        FirebaseVisionBarcodeDetectorOptions options =
-                new FirebaseVisionBarcodeDetectorOptions.Builder()
-                        .setBarcodeFormats(
-                                FirebaseVisionBarcode.TYPE_ISBN
-                        )
-                        .build();
+        FirebaseVisionBarcodeDetectorOptions options = new FirebaseVisionBarcodeDetectorOptions.Builder()
+            .setBarcodeFormats(FirebaseVisionBarcode.FORMAT_EAN_13)
+            .build();
         mDetector = FirebaseVision.getInstance()
-                .getVisionBarcodeDetector();
+            .getVisionBarcodeDetector(options);
     }
 
     @SuppressLint("UnsafeExperimentalUsageError")
@@ -51,25 +48,19 @@ public class BarcodeAnalyzer implements ImageAnalysis.Analyzer {
         }
 
         Image mediaImage = imageProxy.getImage();
-        FirebaseVisionImage image = FirebaseVisionImage.fromMediaImage(mediaImage, 0); // May have to configure rotation param!
+        FirebaseVisionImage image = FirebaseVisionImage.fromMediaImage(mediaImage, 0);
 
         Task<List<FirebaseVisionBarcode>> result = mDetector.detectInImage(image)
-                .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionBarcode>>() {
-                    @Override
-                    public void onSuccess(List<FirebaseVisionBarcode> barcodes) {
-                        Log.d(TAG, "onSuccess: "+barcodes);
-                        if(barcodes != null) {
-                            if(barcodes.size() > 0) {
-                                mListener.onBarcodeDetected(barcodes);
-                            }
+                .addOnSuccessListener(barcodes -> {
+                    Log.d(TAG, "onSuccess: "+barcodes);
+                    if(barcodes != null) {
+                        if(barcodes.size() > 0) {
+                            mListener.onBarcodeDetected(barcodes);
                         }
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, "Barcode detection failure.", e);
-                    }
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Barcode detection failure.", e);
                 });
 
         imageProxy.close();
