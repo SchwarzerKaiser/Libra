@@ -10,14 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.leewilson.libra.R;
 import com.leewilson.libra.model.Book;
-import com.leewilson.libra.views.SearchFragmentDirections;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -2,17 +2,6 @@ package com.leewilson.libra.views;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.leewilson.libra.R;
 import com.leewilson.libra.model.Book;
 import com.leewilson.libra.viewmodels.ScannerViewModel;
-import com.leewilson.libra.viewmodels.SearchBooksViewModel;
 import com.squareup.picasso.Picasso;
 
 public class ScannedBookFragment extends Fragment {
